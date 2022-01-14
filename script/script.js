@@ -16,9 +16,6 @@ let score = [0, 0];
 let batterIndex_list = [1, 1];
 let attack_flag = 0;
 
-// バッターの名前を表示
-showBatterName(1, 0);
-
 let runner_list = [0, 0, 0];
 
 // カウント設定
@@ -42,8 +39,6 @@ let data_position = "";
 let data_place = "";
 let data_run = "";
 
-let data_post = "";
-
 let data_stack = [];
 
 // 打球の分類
@@ -54,13 +49,14 @@ let value_position = 0;
 let value_place = 0;
 let value_run = 0;
 
-// 
+// ランナーの情報
 let move_list = [0, 0, 0, 0];
 let br = 0;
 let fr = 0;
 let sr = 0;
 let tr = 0;
-let point = 0;
+
+game_start();
 
 /* 関数_表示 */
 
@@ -461,7 +457,7 @@ function setRunner() {
     value_run = br;
 
     // 点数を計算
-    point = move_list[3];
+    // ここに点数を追加
 
     // ツーベース
     if (value_run == 2) {
@@ -537,6 +533,44 @@ $(function ($) {
     })
 });
 
+/* 関数_試合を制御 */
+function game_start(){
+    // バッターの名前を表示
+    showBatterName(batterIndex_list[attack_flag], attack_flag);
+
+    // 打順を次へ
+    // 9番なら1番に戻す
+    if(batterIndex_list[attack_flag] == 9){
+        batterIndex_list[attack_flag] = 1;
+    }else{
+        batterIndex_list[attack_flag]++;
+    }
+}
+
+function next(){
+    // ストライクカウント・ボールカウントをリセット
+    cnt_ball = 0;
+    cnt_strike = 0;
+    flag_reset();
+
+    // スリーアウトでチェンジ
+    if(cnt_out == 3){
+        attack_flag = (attack_flag + 1) % 2;
+        cnt_reset();
+    }
+
+    // バッターの名前を表示
+    showBatterName(batterIndex_list[attack_flag], attack_flag);
+
+    // 打順を次へ
+    // 9番なら1番に戻す
+    if(batterIndex_list[attack_flag] == 9){
+        batterIndex_list[attack_flag] = 1;
+    }else{
+        batterIndex_list[attack_flag]++;
+    }
+}
+
 /* 関数_結果を表示・送信 */
 
 // 結果を表示
@@ -586,14 +620,11 @@ function show_result() {
 function submit() {
     // 結果を送信
     if (flag_batterChange == true) {
-        postData(0, data_result, value_position, data_place, value_run, data_stack.join(','));
+        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(','));
 
-        // data_stackのリセット
-        data_stack = [];
+        next();
     }
     display_switch(block_next, block_1);
-    flag_reset();
-    data_reset();
 }
 
 // データを送信(Ajax)
