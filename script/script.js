@@ -14,13 +14,12 @@ display_none(block_next);
 // 試合情報
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let batterName = "";
+let attack_flag = 0;
+
+// バッターの名前を表示
 showBatterName(1, 0);
+
 let runner_list = [0, 0, 0];
-
-console.log(batterName);
-
-
 
 // カウント設定
 let cnt_ball = 0;
@@ -65,16 +64,19 @@ let point = 0;
 
 /* 関数_表示 */
 
+// 非表示
 // style display: none
 function display_none(none) {
     none.style.display = "none";
 }
 
+// 表示
 // style display: block;
 function display_block(block) {
     block.style.display = "block";
 }
 
+// 非表示・表示を切り替え
 // 第一引数 : style display: none;
 // 第二引数 : style display: block;
 function display_switch(none, block) {
@@ -105,6 +107,8 @@ function num2cnt(cnt) {
     return show_cnt;
 }
 
+/* 関数_データを整理 */
+
 // カウントをリセット
 function cnt_reset() {
     cnt_ball = 0;
@@ -131,7 +135,6 @@ function data_reset() {
     data_place = "";
     data_run = "";
 }
-
 
 /* 関数_結果を記録 */
 
@@ -229,7 +232,6 @@ function hit(value) {
         else {
             display_switch(block_1, block_2_1);
         }
-
     }
 
     // 三振
@@ -382,7 +384,7 @@ function place(value) {
     }
 }
 
-//　ランナー判定
+// ランナー判定
 function showRunnerList() {
     if (runner_list[0] == 1) {
         display_block(first_runner);
@@ -404,12 +406,15 @@ function showRunnerList() {
     display_block(block_4);
 }
 
+// ランナーを移動
 function setRunner() {
     br = 0;
     fr = 0;
     sr = 0;
     tr = 0;
     move_list = [0, 0, 0, 0];
+
+    // バッターランナー
     if (document.getElementById("br").value != "") {
         br = document.getElementById("br").value;
         if (br >= 4) {
@@ -421,6 +426,7 @@ function setRunner() {
     else {
         alert("選択してください");
     }
+    // ファーストランナー
     if (document.getElementById("fr") != "") {
         fr = document.getElementById("fr").value;
         if (fr >= 4) {
@@ -429,6 +435,7 @@ function setRunner() {
         if (fr >= 1)
             move_list[fr - 1]++;
     }
+    // セカンドランナー
     if (document.getElementById("sr") != "") {
         sr = document.getElementById("sr").value;
         if (sr >= 4) {
@@ -437,6 +444,7 @@ function setRunner() {
         if (sr >= 1)
             move_list[sr - 1]++;
     }
+    // サードランナー
     if (document.getElementById("tr") != "") {
         tr = document.getElementById("tr").value;
         if (tr >= 4) {
@@ -445,21 +453,22 @@ function setRunner() {
         if (tr >= 1)
             move_list[tr - 1]++;
     }
+
+    // ランナーを移動
     runner_list[0] = move_list[0];
     runner_list[1] = move_list[1];
     runner_list[2] = move_list[2];
     value_run = br;
 
+    // 点数を計算
     point = move_list[3];
 
-    console.log(point);
-
-    console.log(move_list);
-
+    // ツーベース
     if (value_run == 2) {
-        data_run = "ツーベス";
+        data_run = "ツーベース";
         flag_showResult = true;
     }
+    // ツーベース
     else if (value_run == 3) {
         data_run = "スリーベース";
         flag_showResult = true;
@@ -468,6 +477,8 @@ function setRunner() {
     show_result();
 }
 
+// 適切な値を入力させるための関数
+// バッターランナー用
 $(function ($) {
     $('#br').change(function () {
         frval = $("#br").val(); //選択したメニューの値
@@ -495,6 +506,7 @@ $(function ($) {
     })
 });
 
+// ファーストランナー用
 $(function ($) {
     $('#fr').change(function () {
         frval = $("#fr").val(); //選択したメニューの値
@@ -513,6 +525,7 @@ $(function ($) {
     })
 });
 
+// セカンドランナー用
 $(function ($) {
     $('#sr').change(function () {
         frval = $("#sr").val(); //選択したメニューの値
@@ -528,7 +541,7 @@ $(function ($) {
 
 // 結果を表示
 function show_result() {
-    display_block(result);  //block_result(結果)を表示
+    display_block(result);  // block_result(結果)を表示
     document.getElementById("cnt_ball").innerHTML = num2cnt(cnt_ball);  // ボールカウントの表示
     document.getElementById("cnt_strike").innerHTML = num2cnt(cnt_strike);  // ストライクカウントの表示
     document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
@@ -567,14 +580,13 @@ function show_result() {
 
     // 結果を画面に表示
     document.getElementById("data_result").innerHTML = data_hit + "<br>" + data_result;
-
 }
 
 // 結果を送信
 function submit() {
     // 結果を送信
     if (flag_batterChange == true) {
-        postData(0, data_result, data_stack.join(','), value_position, data_place, value_run);
+        postData(0, data_result, value_position, data_place, value_run, data_stack.join(','));
 
         // data_stackのリセット
         data_stack = [];
@@ -584,6 +596,7 @@ function submit() {
     data_reset();
 }
 
+// データを送信(Ajax)
 function postData(team_flag, result, position, place, b_runner, ball_array) {
     $.post({
         url: '/writeData/play_data.php',
@@ -598,10 +611,12 @@ function postData(team_flag, result, position, place, b_runner, ball_array) {
         dataType: 'json', //json形式で返すように設定
     }).done(function (_data) {
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
+        // 失敗時はエラーを吐かせる
         console.error(errorThrown);
     })
 }
 
+// バッター情報を取得(Ajax)
 function showBatterName(batter_index, team_flag) {
     $.post({
         url: '/getData/batter_name.php',
@@ -614,6 +629,7 @@ function showBatterName(batter_index, team_flag) {
         $('#batter_index').text(data.batter_index + '番');
         $('#batter_name').text(data.batter_name);
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
+        // 失敗時はエラーを吐かせる
         console.error(errorThrown);
     })
 }
