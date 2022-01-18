@@ -82,110 +82,120 @@ $member = $members->fetch();
                 <div id="data_result">
 
                 </div>
+                <div id="change">
+
+                </div>
+                <div id="match_end">
+
+                </div>
+                <div id="end_btn" class="text-end">
+                    <a href="/record/end_match/" class="btn btn-secondary">終了</a>
+                </div>
                 <div id="block_next">
                     <div class="text-end">
                         <input type="button" class="btn btn-secondary" id="btn_next" value="次へ" onclick="display_none(block_next); submit()">
                     </div>
                 </div>
-                <div class="list-group" id="block_1">
-                    <input type="button" class="list-group-item list-group-item-action" value="ボール" onclick="hit(1)">
-                    <input type="button" class="list-group-item list-group-item-action" value="空振りストライク" onclick="hit(2)">
-                    <input type="button" class="list-group-item list-group-item-action" value="見逃しストライク" onclick="hit(3)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ファウル" onclick="hit(4)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ファウルフライ" onclick="hit(5)">
-                    <input type="button" class="list-group-item list-group-item-action" value="バントファウル" onclick="hit(6)">
-                    <input type="button" class="list-group-item list-group-item-action" value="バント空振り" onclick="hit(7)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ゴロ" onclick="hit(8)">
-                    <input type="button" class="list-group-item list-group-item-action" value="フライ" onclick="hit(9)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ヒット" onclick="hit(10)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ホームラン" onclick="hit(11)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ランニングホームラン" onclick="hit(12)">
-                </div>
-                <div id="block_2_1">
-                    <input type="button" class="list-group-item list-group-item-action" value="ピッチャー" onclick="position(1)">
-                    <input type="button" class="list-group-item list-group-item-action" value="キャッチャー" onclick="position(2)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ファースト" onclick="position(3)">
-                    <input type="button" class="list-group-item list-group-item-action" value="セカンド" onclick="position(4)">
-                    <input type="button" class="list-group-item list-group-item-action" value="サード" onclick="position(5)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ショート" onclick="position(6)">
-                    <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
-                    <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
-                </div>
-                <div id="block_2_2">
-                    <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
-                    <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
-                    <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
-                </div>
-                <div id="block_3">
-                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
-                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
-                    <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
-                    <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
-                </div>
-                <div id="block_3_l">
-                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
-                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
-                    <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
-                </div>
-                <div id="block_3_r">
-                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
-                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
-                    <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
-                </div>
-                <div id="block_4">
-                    <div class="mb-3" id="batter_runner">
-                        <div class="label">
-                            バッターランナー
+                <div id="select_block">
+                    <div class="list-group" id="block_1">
+                        <input type="button" class="list-group-item list-group-item-action" value="ボール" onclick="hit(1)">
+                        <input type="button" class="list-group-item list-group-item-action" value="空振りストライク" onclick="hit(2)">
+                        <input type="button" class="list-group-item list-group-item-action" value="見逃しストライク" onclick="hit(3)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ファウル" onclick="hit(4)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ファウルフライ" onclick="hit(5)">
+                        <input type="button" class="list-group-item list-group-item-action" value="バントファウル" onclick="hit(6)">
+                        <input type="button" class="list-group-item list-group-item-action" value="バント空振り" onclick="hit(7)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ゴロ" onclick="hit(8)">
+                        <input type="button" class="list-group-item list-group-item-action" value="フライ" onclick="hit(9)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ヒット" onclick="hit(10)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ホームラン" onclick="hit(11)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ランニングホームラン" onclick="hit(12)">
+                    </div>
+                    <div class="list-group" id="block_2_1">
+                        <input type="button" class="list-group-item list-group-item-action" value="ピッチャー" onclick="position(1)">
+                        <input type="button" class="list-group-item list-group-item-action" value="キャッチャー" onclick="position(2)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ファースト" onclick="position(3)">
+                        <input type="button" class="list-group-item list-group-item-action" value="セカンド" onclick="position(4)">
+                        <input type="button" class="list-group-item list-group-item-action" value="サード" onclick="position(5)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ショート" onclick="position(6)">
+                        <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
+                        <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
+                    </div>
+                    <div class="list-group" id="block_2_2">
+                        <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
+                        <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
+                        <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
+                    </div>
+                    <div class="list-group" id="block_3">
+                        <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                        <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                        <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
+                        <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
+                    </div>
+                    <div class="list-group" id="block_3_l">
+                        <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                        <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                        <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
+                    </div>
+                    <div class="list-group" id="block_3_r">
+                        <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                        <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                        <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
+                    </div>
+                    <div id="block_4">
+                        <div class="mb-3" id="batter_runner">
+                            <div class="label">
+                                バッターランナー
+                            </div>
+                            <select name="batter_runner" id="br" class="form-select" autocomplete="off">
+                                <option value="-1" id="brsel" selected>選択してください</option>
+                                <option value="0" id="br0">アウト</option>
+                                <option value="1" id="br1">1塁へ</option>
+                                <option value="2" id="br2">2塁へ</option>
+                                <option value="3" id="br3">3塁へ</option>
+                                <option value="4" id="br4">ホームへ</option>
+                            </select>
                         </div>
-                        <select name="batter_runner" id="br" class="form-select" autocomplete="off">
-                            <option value="-1" id="brsel" selected>選択してください</option>
-                            <option value="0" id="br0">アウト</option>
-                            <option value="1" id="br1">1塁へ</option>
-                            <option value="2" id="br2">2塁へ</option>
-                            <option value="3" id="br3">3塁へ</option>
-                            <option value="4" id="br4">ホームへ</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="first_runner">
-                        <div class="label">1塁ランナー</div>
-                        <select name="first_runner" id="fr" class="list-group-item list-group-item-action" autocomplete="off">
-                            <option value="-1" id="frsel" selected>選択してください</option>
-                            <option value="0" id="fr0">アウト</option>
-                            <option value="1" id="fr1">そのまま</option>
-                            <option value="2" id="fr2">2塁へ</option>
-                            <option value="3" id="fr3">3塁へ</option>
-                            <option value="4" id="fr4">ホームへ</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="second_runner">
-                        <div class="label">
-                            2塁ランナー
+                        <div class="mb-3" id="first_runner">
+                            <div class="label">1塁ランナー</div>
+                            <select name="first_runner" id="fr" class="list-group-item list-group-item-action" autocomplete="off">
+                                <option value="-1" id="frsel" selected>選択してください</option>
+                                <option value="0" id="fr0">アウト</option>
+                                <option value="1" id="fr1">そのまま</option>
+                                <option value="2" id="fr2">2塁へ</option>
+                                <option value="3" id="fr3">3塁へ</option>
+                                <option value="4" id="fr4">ホームへ</option>
+                            </select>
                         </div>
-                        <select name="second_runner" id="sr" class="list-group-item list-group-item-action" autocomplete="off">
-                            <option value="-1" id="srsel" selected>選択してください</option>
-                            <option value="0" id="sr0">アウト</option>
-                            <option value="2" id="sr2">そのまま</option>
-                            <option value="3" id="sr3">3塁へ</option>
-                            <option value="4" id="sr4">ホームへ</option>
-                        </select>
-                    </div>
-                    <div class="mb-3" id="third_runner">
-                        <div class="label">
-                            3塁ランナー
+                        <div class="mb-3" id="second_runner">
+                            <div class="label">
+                                2塁ランナー
+                            </div>
+                            <select name="second_runner" id="sr" class="list-group-item list-group-item-action" autocomplete="off">
+                                <option value="-1" id="srsel" selected>選択してください</option>
+                                <option value="0" id="sr0">アウト</option>
+                                <option value="2" id="sr2">そのまま</option>
+                                <option value="3" id="sr3">3塁へ</option>
+                                <option value="4" id="sr4">ホームへ</option>
+                            </select>
                         </div>
-                        <select name="third_runner" id="tr" class="list-group-item list-group-item-action" autocomplete="off">
-                            <option value="-1" id="trsel" selected>選択してください</option>
-                            <option value="0" id="tr0">アウト</option>
-                            <option value="3" id="tr3">そのまま</option>
-                            <option value="4" id="tr4">ホームへ</option>
-                        </select>
-                    </div>
-                    <div class="text-end mb-3">
-                        <input type="button" class="btn btn-secondary" id="OK" value="OK" onclick="setRunner()">
+                        <div class="mb-3" id="third_runner">
+                            <div class="label">
+                                3塁ランナー
+                            </div>
+                            <select name="third_runner" id="tr" class="list-group-item list-group-item-action" autocomplete="off">
+                                <option value="-1" id="trsel" selected>選択してください</option>
+                                <option value="0" id="tr0">アウト</option>
+                                <option value="3" id="tr3">そのまま</option>
+                                <option value="4" id="tr4">ホームへ</option>
+                            </select>
+                        </div>
+                        <div class="text-end mb-3">
+                            <input type="button" class="btn btn-secondary" id="OK" value="OK" onclick="setRunner()">
+                        </div>
                     </div>
                 </div>
-
             </div>
         </div>
 

@@ -14,7 +14,7 @@ if (!empty($_POST)) {
     if ($_POST['date'] == '') $error = 'blank';
     else if ($_POST['matchName'] == '')  $error = 'blank';
     else if ($_POST['stadiumName'] == '') $error = 'blank';
-    else if (!empty($_POST['condition'])) $error = 'blank';
+    else if (empty($_POST['condition'])) $error = 'blank';
     else if ($_POST['weather'] == '') $error = 'blank';
     else if ($_POST['myTeam'] == '') $error = 'blank';
     else if ($_POST['oppTeam'] == '') $error = 'blank';
@@ -51,10 +51,54 @@ if (!empty($_POST)) {
             $match_id++;
         }
 
-        $sql = 'INSERT INTO matches(member_id, match_id) VALUES(:member_id, :match_id)';
+        $sql = 'INSERT INTO 
+        matches(
+            member_id, 
+            match_id, 
+            date,
+            match_name,
+            stadium_name,
+            condition,
+            weather,
+            judge0,
+            judge1,
+            judge2,
+            judge3,
+            recorder,
+            my_team_name,
+            opp_team_name
+            ) 
+        VALUES(
+            :member_id,
+            :match_id,
+            :date,
+            :match_name,
+            :stadium_name,
+            :condition,
+            :weather,
+            :judge0,
+            :judge1,
+            :judge2,
+            :judge3,
+            :recorder,
+            :my_team_name,
+            :opp_team_name
+            )';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':member_id', $_SESSION['id']);
         $stmt->bindValue(':match_id', $match_id);
+        $stmt->bindValue(':date', $_POST['date']);
+        $stmt->bindValue(':matchName', $_POST['matchName']);
+        $stmt->bindValue(':stadium_name', $_POST['stadiumName']);
+        $stmt->bindValue(':condition', $_POST['condition']);
+        $stmt->bindValue(':weather', $_POST['weather']);
+        $stmt->bindValue(':judge0', $_POST['judge0']);
+        $stmt->bindValue(':judge1', $_POST['judge1']);
+        $stmt->bindValue(':judge2', $_POST['judge2']);
+        $stmt->bindValue(':judge3', $_POST['judge3']);
+        $stmt->bindValue(':recorder', $_POST['recorder']);
+        $stmt->bindValue(':my_team_name', $_POST['myTeam']);
+        $stmt->bindValue(':opp_team_name', $_POST['oppTeam']);
         $stmt->execute();
 
         $_SESSION['match_id'] = $match_id;
@@ -65,8 +109,8 @@ if (!empty($_POST)) {
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':match_id', $_SESSION['match_id']);
             $stmt->bindValue(':team_flag', MY_TEAM);
-            $stmt->bindValue('batter_index', $batter_index_cnt);
-            $stmt->bindValue('batter_name', $myBatter);
+            $stmt->bindValue(':batter_index', $batter_index_cnt);
+            $stmt->bindValue(':batter_name', $myBatter);
             $stmt->execute();
             $batter_index_cnt++;
         }
@@ -77,8 +121,8 @@ if (!empty($_POST)) {
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':match_id', $_SESSION['match_id']);
             $stmt->bindValue(':team_flag', OPP_TEAM);
-            $stmt->bindValue('batter_index', $batter_index_cnt);
-            $stmt->bindValue('batter_name', $oppBatter);
+            $stmt->bindValue(':batter_index', $batter_index_cnt);
+            $stmt->bindValue(':batter_name', $oppBatter);
             $stmt->execute();
             $batter_index_cnt++;
         }

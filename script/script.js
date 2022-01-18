@@ -9,6 +9,8 @@ display_none(block_3_l);
 display_none(block_3_r);
 display_none(block_4);
 display_none(block_next);
+display_none(change);
+display_none(end_btn);
 
 // 試合情報
 let score = [0, 0];
@@ -34,6 +36,7 @@ let flag_showResult = false;
 let flag_batterChange = false;
 let flag_forcePlay = false;
 let flag_homeRun = false;
+let flag_hit = false;
 
 // データのリセット
 let data_result = "";
@@ -61,6 +64,7 @@ let hb = 0;
 
 game_start();
 
+// それっぽく見せるため2秒待たせる
 $(function () {
     setTimeout('stopload()', 2000);
 });
@@ -69,7 +73,6 @@ function stopload() {
     $('#wrap').css('display', 'block');
     $('#loading').css('display', 'none');
 }
-
 
 // スリープ関数
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
@@ -202,6 +205,7 @@ function hit(value) {
             data_hit = 'ヒット';
             cnt_ball = 0;
             cnt_strike = 0;
+            flag_hit = true;
             break;
         case 11:
             data_hit = 'ホームラン';
@@ -408,6 +412,11 @@ function place(value) {
 
 // ランナー判定
 function showRunnerList() {
+    if (flag_hit) {
+        display_none(br0);
+    } else {
+        display_block(br0);
+    }
     if (runner_list[0] == 1) {
         display_block(first_runner);
     } else {
@@ -592,11 +601,20 @@ function next() {
         if (flag_inningChange == 0) {
             cnt_inning++;
         }
+        if (cnt_inning >= 10) {
+            display_none(match_data);
+            display_none(select_block);
+            display_block(end_btn);
+            document.getElementById("match_end").innerHTML = '<div class="alert alert-primary" role="alert">' + '<p>試合終了</p><hr><p class="mb-0">' + score[0] + ' - ' + score[1] + '</p>' + '</div>'
+        }
         attack_flag = (attack_flag + 1) % 2;
         flag_inningChange = (flag_inningChange + 1) % 2;
         runner_list = [0, 0, 0];
         data_reset();
         cnt_reset();
+        document.getElementById("cnt_ball").innerHTML = num2cnt(cnt_ball);  // ボールカウントの表示
+        document.getElementById("cnt_strike").innerHTML = num2cnt(cnt_strike);  // ストライクカウントの表示
+        document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
     }
 
     // バッターの名前を表示
@@ -604,7 +622,6 @@ function next() {
     showInning();
     showRunner();
     showScore();
-
 
     // 打順を次へ
     // 9番なら1番に戻す
@@ -712,6 +729,16 @@ function show_result() {
     } else {
         document.getElementById("data_result").innerHTML = '<div class="alert alert-success" role="alert">' + data_result + '</div>'
     }
+
+    if (cnt_out >= 3) {
+        if (!(cnt_inning >= 9) && !(flag_inningChange == 0)) {
+            display_block(change);
+            document.getElementById("change").innerHTML = '<div class="alert alert-warning" role="alert">' + 'チェンジ' + '</div>'
+        } else {
+            display_block(change);
+            document.getElementById("change").innerHTML = '<div class="alert alert-primary" role="alert">' + '試合終了' + '</div>'
+        }
+    }
 }
 
 // 結果を送信
@@ -722,6 +749,8 @@ function submit() {
         next();
     }
     $('#data_result').text('');
+    $('#change').text('');
+    display_none(change);
     data_reset();
     if (flag_homeRun == true) {
         runner_list = [0, 0, 0];
