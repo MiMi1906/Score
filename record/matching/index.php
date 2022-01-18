@@ -26,141 +26,177 @@ $member = $members->fetch();
 
     <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="/css/general.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/customize.css">
 
     <title>Score</title>
 </head>
 
 <body>
-    <div class="matching">
-        <div class="login_form_background">
-            <div class="content login_form">
-                <div id="result">
-                    <div class="cnt">
-                        <span class="title">B</span><span id="cnt_ball" class="cnt_show"></span>
+    <div id="loading">
+        <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+    <div class="container" id="wrap">
+        <div class="row">
+            <div class="col-md" id="match_data">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <span id="inning"></span>
+                            <span id="attack_flag"></span>
+                        </h4>
+                        <div class="card-text">
+                            <span id="score"></span>
+                        </div>
                     </div>
-                    <div class="cnt">
-                        <span class="title">S</span><span id="cnt_strike" class="cnt_show"></span>
-                    </div>
-                    <div class="cnt">
-                        <span class="title">O</span><span id="cnt_out" class="cnt_show">
-                        </span>
-                    </div>
-                    <div id="data_result" class="cnt"></div>
                 </div>
-                <div id="matchData">
-                    <span id="batter_index"></span>
-                    <span id="batter_name"></span>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h4 class="batter card-title">
+                            <span id="batter_index">　</span>
+                            <span id="batter_name">　</span>
+                        </h4>
+                        <hr>
+                        <div id="result" class=" card-text">
+                            <div class=" cnt">
+                                <span class="title">B</span><span id="cnt_ball" class="cnt_ball cnt_num"></span>
+                            </div>
+                            <div class="cnt">
+                                <span class="title">S</span><span id="cnt_strike" class="cnt_strike cnt_num"></span>
+                            </div>
+                            <div class="cnt">
+                                <span class="title">O</span><span id="cnt_out" class="cnt_out cnt_num">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="runner">
+                            <span id="runner"></span>
+                        </div>
+                    </div>
                 </div>
-                <div class="select-block"></div>
-                <div id="block_1">
-                    <input type="button" class="login_form_input button" value="ボール" onclick="hit(1)"><br>
-                    <input type="button" class="login_form_input button" value="空振りストライク" onclick="hit(2)"><br>
-                    <input type="button" class="login_form_input button" value="見逃しストライク" onclick="hit(3)"><br>
-                    <input type="button" class="login_form_input button" value="ファウル" onclick="hit(4)"><br>
-                    <input type="button" class="login_form_input button" value="ファウルフライ" onclick="hit(5)"><br>
-                    <input type="button" class="login_form_input button" value="バントファウル" onclick="hit(6)"><br>
-                    <input type="button" class="login_form_input button" value="バント空振り" onclick="hit(7)"><br>
-                    <input type="button" class="login_form_input button" value="ゴロ" onclick="hit(8)"><br>
-                    <input type="button" class="login_form_input button" value="フライ" onclick="hit(9)"><br>
-                    <input type="button" class="login_form_input button" value="ヒット" onclick="hit(10)"><br>
-                    <input type="button" class="login_form_input button" value="ホームラン" onclick="hit(11)"><br>
-                    <input type="button" class="login_form_input button" value="ランニングホームラン" onclick="hit(12)"><br>
+
+            </div>
+            <div class="col-md">
+                <div id="data_result">
+
+                </div>
+                <div id="block_next">
+                    <div class="text-end">
+                        <input type="button" class="btn btn-secondary" id="btn_next" value="次へ" onclick="display_none(block_next); submit()">
+                    </div>
+                </div>
+                <div class="list-group" id="block_1">
+                    <input type="button" class="list-group-item list-group-item-action" value="ボール" onclick="hit(1)">
+                    <input type="button" class="list-group-item list-group-item-action" value="空振りストライク" onclick="hit(2)">
+                    <input type="button" class="list-group-item list-group-item-action" value="見逃しストライク" onclick="hit(3)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ファウル" onclick="hit(4)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ファウルフライ" onclick="hit(5)">
+                    <input type="button" class="list-group-item list-group-item-action" value="バントファウル" onclick="hit(6)">
+                    <input type="button" class="list-group-item list-group-item-action" value="バント空振り" onclick="hit(7)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ゴロ" onclick="hit(8)">
+                    <input type="button" class="list-group-item list-group-item-action" value="フライ" onclick="hit(9)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ヒット" onclick="hit(10)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ホームラン" onclick="hit(11)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ランニングホームラン" onclick="hit(12)">
                 </div>
                 <div id="block_2_1">
-                    <input type="button" class="login_form_input button" value="ピッチャー" onclick="position(1)"><br>
-                    <input type="button" class="login_form_input button" value="キャッチャー" onclick="position(2)"><br>
-                    <input type="button" class="login_form_input button" value="ファースト" onclick="position(3)"><br>
-                    <input type="button" class="login_form_input button" value="セカンド" onclick="position(4)"><br>
-                    <input type="button" class="login_form_input button" value="サード" onclick="position(5)"><br>
-                    <input type="button" class="login_form_input button" value="ショート" onclick="position(6)"><br>
-                    <input type="button" class="login_form_input button" value="レフト" onclick="position(7)"><br>
-                    <input type="button" class="login_form_input button" value="センター" onclick="position(8)"><br>
-                    <input type="button" class="login_form_input button" value="ライト" onclick="position(9)"><br>
+                    <input type="button" class="list-group-item list-group-item-action" value="ピッチャー" onclick="position(1)">
+                    <input type="button" class="list-group-item list-group-item-action" value="キャッチャー" onclick="position(2)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ファースト" onclick="position(3)">
+                    <input type="button" class="list-group-item list-group-item-action" value="セカンド" onclick="position(4)">
+                    <input type="button" class="list-group-item list-group-item-action" value="サード" onclick="position(5)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ショート" onclick="position(6)">
+                    <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
+                    <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
                 </div>
                 <div id="block_2_2">
-                    <input type="button" class="login_form_input button" value="レフト" onclick="position(7)"><br>
-                    <input type="button" class="login_form_input button" value="センター" onclick="position(8)"><br>
-                    <input type="button" class="login_form_input button" value="ライト" onclick="position(9)"><br>
+                    <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
+                    <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
+                    <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
                 </div>
                 <div id="block_3">
-                    <input type="button" class="login_form_input button" value="前" onclick="place(1)"><br>
-                    <input type="button" class="login_form_input button" value="オーバー" onclick="place(2)"><br>
-                    <input type="button" class="login_form_input button" value="左中間" onclick="place(3)"><br>
-                    <input type="button" class="login_form_input button" value="右中間" onclick="place(4)"><br>
+                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                    <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
+                    <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
                 </div>
                 <div id="block_3_l">
-                    <input type="button" class="login_form_input button" value="前" onclick="place(1)"><br>
-                    <input type="button" class="login_form_input button" value="オーバー" onclick="place(2)"><br>
-                    <input type="button" class="login_form_input button" value="左中間" onclick="place(3)"><br>
+                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                    <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
                 </div>
                 <div id="block_3_r">
-                    <input type="button" class="login_form_input button" value="前" onclick="place(1)"><br>
-                    <input type="button" class="login_form_input button" value="オーバー" onclick="place(2)"><br>
-                    <input type="button" class="login_form_input button" value="右中間" onclick="place(4)"><br>
+                    <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
+                    <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
+                    <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
                 </div>
                 <div id="block_4">
-                    <div class="" id="batter_runner">
+                    <div class="mb-3" id="batter_runner">
                         <div class="label">
                             バッターランナー
                         </div>
-                        <select name="batter_runner" id="br" class="login_form_input button">
-                            <option value="" disabled selected>選択してください</option>
+                        <select name="batter_runner" id="br" class="form-select" autocomplete="off">
+                            <option value="-1" id="brsel" selected>選択してください</option>
+                            <option value="0" id="br0">アウト</option>
                             <option value="1" id="br1">1塁へ</option>
                             <option value="2" id="br2">2塁へ</option>
                             <option value="3" id="br3">3塁へ</option>
                             <option value="4" id="br4">ホームへ</option>
-                        </select><br>
+                        </select>
                     </div>
-                    <div class="" id="first_runner">
+                    <div class="mb-3" id="first_runner">
                         <div class="label">1塁ランナー</div>
-                        <select name="first_runner" id="fr" class="login_form_input button">
-                            <option value="" id="frsel" disabled selected>選択してください</option>
+                        <select name="first_runner" id="fr" class="list-group-item list-group-item-action" autocomplete="off">
+                            <option value="-1" id="frsel" selected>選択してください</option>
                             <option value="0" id="fr0">アウト</option>
                             <option value="1" id="fr1">そのまま</option>
                             <option value="2" id="fr2">2塁へ</option>
                             <option value="3" id="fr3">3塁へ</option>
                             <option value="4" id="fr4">ホームへ</option>
-                        </select><br>
+                        </select>
                     </div>
-                    <div class="" id="second_runner">
+                    <div class="mb-3" id="second_runner">
                         <div class="label">
                             2塁ランナー
                         </div>
-                        <select name="second_runner" id="sr" class="login_form_input button">
-                            <option value="" id="srsel" disabled selected>選択してください</option>
+                        <select name="second_runner" id="sr" class="list-group-item list-group-item-action" autocomplete="off">
+                            <option value="-1" id="srsel" selected>選択してください</option>
                             <option value="0" id="sr0">アウト</option>
                             <option value="2" id="sr2">そのまま</option>
                             <option value="3" id="sr3">3塁へ</option>
                             <option value="4" id="sr4">ホームへ</option>
-                        </select><br>
+                        </select>
                     </div>
-                    <div class="" id="third_runner">
+                    <div class="mb-3" id="third_runner">
                         <div class="label">
                             3塁ランナー
                         </div>
-                        <select name="third_runner" id="tr" class="login_form_input button">
-                            <option value="" id="trsel" disabled selected>選択してください</option>
+                        <select name="third_runner" id="tr" class="list-group-item list-group-item-action" autocomplete="off">
+                            <option value="-1" id="trsel" selected>選択してください</option>
                             <option value="0" id="tr0">アウト</option>
                             <option value="3" id="tr3">そのまま</option>
                             <option value="4" id="tr4">ホームへ</option>
-                        </select><br>
+                        </select>
                     </div>
-                    <input type="button" class="login_form_input button" id="OK" value="OK" onclick="setRunner()">
+                    <div class="text-end mb-3">
+                        <input type="button" class="btn btn-secondary" id="OK" value="OK" onclick="setRunner()">
+                    </div>
                 </div>
-                <div id="block_next">
-                    <input type="button" class="login_form_input button" id="btn_next" value="次へ" onclick="display_none(block_next); submit()">
-                </div>
-                <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-                <script src="/script/script.js"></script>
+
             </div>
         </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="/script/script.js"></script>
     </div>
 
     <!-- script -->
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
+    <script src="/script/bootstrap.min.js"></script>
 </body>
 
 </html>
