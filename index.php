@@ -43,7 +43,20 @@ $matches = $stmt->fetchAll();
   <div class="container">
     <div class="row">
       <div class="col-md-6 mb-3">
-        <div class="card">
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4 class="card-title mb-3">
+              最近の試合
+            </h4>
+            <div class="card-text">
+              <h5>○○ vs △△</h5>
+              <p>
+                3 - 5
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card mb-3">
           <div class="card-header">
             試合を開始
           </div>

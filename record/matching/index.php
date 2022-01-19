@@ -97,7 +97,7 @@ $member = $members->fetch();
                     </div>
                 </div>
                 <div id="select_block">
-                    <div class="list-group" id="block_1">
+                    <div class="list-group mb-3" id="block_1">
                         <input type="button" class="list-group-item list-group-item-action" value="ボール" onclick="hit(1)">
                         <input type="button" class="list-group-item list-group-item-action" value="空振りストライク" onclick="hit(2)">
                         <input type="button" class="list-group-item list-group-item-action" value="見逃しストライク" onclick="hit(3)">
@@ -105,6 +105,7 @@ $member = $members->fetch();
                         <input type="button" class="list-group-item list-group-item-action" value="ファウルフライ" onclick="hit(5)">
                         <input type="button" class="list-group-item list-group-item-action" value="バントファウル" onclick="hit(6)">
                         <input type="button" class="list-group-item list-group-item-action" value="バント空振り" onclick="hit(7)">
+                        <input type="button" class="list-group-item list-group-item-action" value="バント" onclick="hit(14)" id="bant">
                         <input type="button" class="list-group-item list-group-item-action" value="デッドボール" onclick="hit(13)">
                         <input type="button" class="list-group-item list-group-item-action" value="ゴロ" onclick="hit(8)">
                         <input type="button" class="list-group-item list-group-item-action" value="フライ" onclick="hit(9)">
@@ -112,7 +113,10 @@ $member = $members->fetch();
                         <input type="button" class="list-group-item list-group-item-action" value="ホームラン" onclick="hit(11)">
                         <input type="button" class="list-group-item list-group-item-action" value="ランニングホームラン" onclick="hit(12)">
                     </div>
-                    <div class="list-group" id="block_2_1">
+                    <div class="list-group mb-3" id="stolen">
+                        <input type="button" class="list-group-item list-group-item-action" value="盗塁" onclick="stolen_base()">
+                    </div>
+                    <div class="list-group mb-3" id="block_2_1">
                         <input type="button" class="list-group-item list-group-item-action" value="ピッチャー" onclick="position(1)">
                         <input type="button" class="list-group-item list-group-item-action" value="キャッチャー" onclick="position(2)">
                         <input type="button" class="list-group-item list-group-item-action" value="ファースト" onclick="position(3)">
@@ -123,28 +127,28 @@ $member = $members->fetch();
                         <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
                         <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
                     </div>
-                    <div class="list-group" id="block_2_2">
+                    <div class="list-group mb-3" id="block_2_2">
                         <input type="button" class="list-group-item list-group-item-action" value="レフト" onclick="position(7)">
                         <input type="button" class="list-group-item list-group-item-action" value="センター" onclick="position(8)">
                         <input type="button" class="list-group-item list-group-item-action" value="ライト" onclick="position(9)">
                     </div>
-                    <div class="list-group" id="block_3">
+                    <div class="list-group mb-3" id="block_3">
                         <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
                         <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
                         <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
                         <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
                     </div>
-                    <div class="list-group" id="block_3_l">
+                    <div class="list-group mb-3" id="block_3_l">
                         <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
                         <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
                         <input type="button" class="list-group-item list-group-item-action" value="左中間" onclick="place(3)">
                     </div>
-                    <div class="list-group" id="block_3_r">
+                    <div class="list-group mb-3" id="block_3_r">
                         <input type="button" class="list-group-item list-group-item-action" value="前" onclick="place(1)">
                         <input type="button" class="list-group-item list-group-item-action" value="オーバー" onclick="place(2)">
                         <input type="button" class="list-group-item list-group-item-action" value="右中間" onclick="place(4)">
                     </div>
-                    <div id="block_4">
+                    <div id="block_4" class="mb-3">
                         <div class="mb-3" id="batter_runner">
                             <div class="label">
                                 バッターランナー
@@ -160,8 +164,8 @@ $member = $members->fetch();
                         </div>
                         <div class="mb-3" id="first_runner">
                             <div class="label">1塁ランナー</div>
-                            <select name="first_runner" id="fr" class="list-group-item list-group-item-action" autocomplete="off">
-                                <option value="-1" id="frsel" selected>選択してください</option>
+                            <select name="first_runner" id="fr" class="form-select" autocomplete="off">
+                                <option value=-1"" id="frsel" selected>選択してください</option>
                                 <option value="0" id="fr0">アウト</option>
                                 <option value="1" id="fr1">そのまま</option>
                                 <option value="2" id="fr2">2塁へ</option>
@@ -173,7 +177,7 @@ $member = $members->fetch();
                             <div class="label">
                                 2塁ランナー
                             </div>
-                            <select name="second_runner" id="sr" class="list-group-item list-group-item-action" autocomplete="off">
+                            <select name="second_runner" id="sr" class="form-select" autocomplete="off">
                                 <option value="-1" id="srsel" selected>選択してください</option>
                                 <option value="0" id="sr0">アウト</option>
                                 <option value="2" id="sr2">そのまま</option>
@@ -185,7 +189,7 @@ $member = $members->fetch();
                             <div class="label">
                                 3塁ランナー
                             </div>
-                            <select name="third_runner" id="tr" class="list-group-item list-group-item-action" autocomplete="off">
+                            <select name="third_runner" id="tr" class="form-select" autocomplete="off">
                                 <option value="-1" id="trsel" selected>選択してください</option>
                                 <option value="0" id="tr0">アウト</option>
                                 <option value="3" id="tr3">そのまま</option>

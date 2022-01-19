@@ -26,6 +26,7 @@ if (!empty($_POST)) {
     else if ($_POST['judge'][2] == '') $error = 'blank';
     else if ($_POST['judge'][3] == '') $error = 'blank';
     else if ($_POST['recorder'] == '') $error = 'blank';
+    else if ($_POST['attackFlag'] == '') $error = 'blank';
 
     if (!empty($_POST['myBatter'])) {
         foreach ($_POST['myBatter'] as $myBatter) {
@@ -111,7 +112,8 @@ if (!empty($_POST)) {
             $match_id++;
         }
 
-        $sql = 'INSERT INTO 
+        $sql =
+            'INSERT INTO 
         matches(
             member_id,
             match_id,
@@ -126,7 +128,8 @@ if (!empty($_POST)) {
             judge3,
             recorder,
             my_team_name,
-            opp_team_name
+            opp_team_name,
+            attack_flag
             ) 
         VALUES(
             :member_id,
@@ -142,7 +145,8 @@ if (!empty($_POST)) {
             :judge3,
             :recorder,
             :my_team_name,
-            :opp_team_name
+            :opp_team_name,
+            :attack_flag
             )';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':member_id', $_SESSION['id']);
@@ -159,6 +163,7 @@ if (!empty($_POST)) {
         $stmt->bindValue(':recorder', $_POST['recorder']);
         $stmt->bindValue(':my_team_name', $_POST['myTeam']);
         $stmt->bindValue(':opp_team_name', $_POST['oppTeam']);
+        $stmt->bindValue(':attack_flag', $_POST['attackFlag']);
         $stmt->execute();
 
         $_SESSION['match_id'] = $match_id;
@@ -287,10 +292,25 @@ if (!empty($_POST)) {
                         </div>
                         <div class="card-body">
                             <div class="card-text">
-                                <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" name="myTeam" id="floatingMyTeam" placeholder="myTeam">
-                                    <label for="floatingMyTeam" class="label-placeholder">自チーム名</label>
+                                <div class="row">
+                                    <div class="col-sm-8">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" name="myTeam" id="floatingMyTeam" placeholder="myTeam">
+                                            <label for="floatingMyTeam" class="label-placeholder">自チーム名</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-floating mb-3">
+                                            <select name="attackFlag" id="floatingAttackFlag" class="form-select" autocomplete="off" placeholder="attackFlag">
+                                                <option value="" disabled selected>選択</option>
+                                                <option value="0">先攻</option>
+                                                <option value="1">後攻</option>
+                                            </select>
+                                            <label for="floatingAttackFlag" class="label-placeholder">先攻・後攻</label>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="row">
                                     <label for="" class="form-label">1番</label>
                                     <div class="col-sm-3">

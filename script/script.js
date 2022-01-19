@@ -11,12 +11,15 @@ display_none(block_4);
 display_none(block_next);
 display_none(change);
 display_none(end_btn);
+display_none(stolen);
+display_none(bant);
 
 // 試合情報
+let matchData;
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let cnt_inning = 9;
-let flag_inningChange = 0;
+let cnt_inning = 1;
+let flag_inningChange = 1;
 let attack_flag = 0;
 
 let runner_list = [0, 0, 0];
@@ -37,6 +40,9 @@ let flag_batterChange = false;
 let flag_forcePlay = false;
 let flag_homeRun = false;
 let flag_hit = false;
+let flag_deadBall = false;
+let flag_stolen = false;
+let flag_submit = false;
 
 // データのリセット
 let data_result = "";
@@ -62,12 +68,20 @@ let sr = 0;
 let tr = 0;
 let hb = 0;
 
+// 試合開始準備
+// 試合情報の取得
+getMatchData();
+
+attack_flag = matchData.attack_flag;
+
+// 試合開始
 game_start();
 
 // それっぽく見せるため2秒待たせる
 $(function () {
     setTimeout('stopload()', 2000);
 });
+
 
 function stopload() {
     $('#wrap').css('display', 'block');
@@ -140,6 +154,12 @@ function flag_reset() {
     flag_3BuntFailure = false;
     flag_showResult = false;
     flag_batterChange = false;
+    flag_forcePlay = false;
+    flag_homeRun = false;
+    flag_hit = false;
+    flag_deadBall = false;
+    flag_stolen = false;
+    flag_submit = false;
 }
 
 //データをリセット
@@ -192,7 +212,9 @@ function hit(value) {
             break;
         case 8:
             data_hit = 'ゴロ';
-            cnt_out++;
+            if (runner_list[0] == 0 && runner_list[1] == 0 && runner_list[2] == 0) {
+                cnt_out++;
+            }
             cnt_ball = 0;
             cnt_strike = 0;
             break;
@@ -231,9 +253,22 @@ function hit(value) {
             cnt_strike = 0;
             flag_batterChange = true;
             flag_showResult = true;
+            break;
+        case 14:
+            data_hit = 'バント';
+            if (runner_list[0] == 0 && runner_list[1] == 0 && runner_list[2] == 0) {
+                cnt_out++;
+            }
+            cnt_ball = 0;
+            cnt_strike = 0;
+            value_hit = 8;
+            break;
         default:
             break;
     }
+
+    flag_stolen = false;
+    display_none(stolen);
 
     // フォアボール
     if (cnt_ball == 4) {
@@ -420,6 +455,17 @@ function place(value) {
 
 // ランナー判定
 function showRunnerList() {
+    if (flag_stolen) {
+        display_none(batter_runner);
+        display_none(fr1);
+        display_none(sr2);
+        display_none(tr3);
+    } else {
+        display_block(batter_runner);
+        display_block(fr1);
+        display_block(sr2);
+        display_block(tr3);
+    }
     if (flag_hit) {
         display_none(br0);
     } else {
@@ -452,6 +498,7 @@ function setRunner() {
     sr = 0;
     tr = 0;
     hb = 0;
+    runner_list = [0, 0, 0];
     // バッターランナー
     if (document.getElementById("br").value != "") {
         br = document.getElementById("br").value;
@@ -462,6 +509,7 @@ function setRunner() {
             runner_list[br - 1]++;
         }
         else if (br == 0) {
+            cnt_out++;
         }
     }
     // ファーストランナー
@@ -474,6 +522,7 @@ function setRunner() {
             runner_list[fr - 1]++;
         }
         else if (fr == 0) {
+            cnt_out++;
         }
     }
     // セカンドランナー
@@ -486,6 +535,7 @@ function setRunner() {
             runner_list[sr - 1]++;
         }
         else if (sr == 0) {
+            cnt_out++;
         }
     }
     // サードランナー
@@ -498,6 +548,7 @@ function setRunner() {
             runner_list[tr - 1]++;
         }
         else if (tr == 0) {
+            cnt_out++;
         }
     }
 
@@ -519,6 +570,17 @@ function setRunner() {
     }
     display_switch(block_4, block_next);
     show_result();
+}
+
+// 盗塁
+function stolen_base() {
+    data_hit = '盗塁';
+    data_result = '盗塁';
+    flag_stolen = true;
+    flag_submit = true;
+    display_none(block_1);
+    display_none(stolen);
+    showRunnerList();
 }
 
 // 適切な値を入力させるための関数
@@ -589,6 +651,11 @@ function game_start() {
     showRunner();
     showScore();
 
+    document.getElementById('br').options[0].selected = true;
+    document.getElementById('fr').options[0].selected = true;
+    document.getElementById('sr').options[0].selected = true;
+    document.getElementById('tr').options[0].selected = true;
+
     // 打順を次へ
     // 9番なら1番に戻す
     if (batterIndex_list[attack_flag] == 9) {
@@ -603,6 +670,11 @@ function next() {
     cnt_ball = 0;
     cnt_strike = 0;
     flag_reset();
+
+    document.getElementById('br').options[0].selected = true;
+    document.getElementById('fr').options[0].selected = true;
+    document.getElementById('sr').options[0].selected = true;
+    document.getElementById('tr').options[0].selected = true;
 
     data_stack = [];
 
@@ -632,6 +704,9 @@ function next() {
     showInning();
     showRunner();
     showScore();
+
+    showStolenBase();
+    showBant();
 
     // 打順を次へ
     // 9番なら1番に戻す
@@ -679,48 +754,103 @@ function showScore() {
     $('#score').text(score[0] + ' - ' + score[1]);
 }
 
+// 盗塁の選択肢を表示
+function showStolenBase() {
+    if (runner_list[0] != 0 || runner_list[1] != 0) {
+        flag_stolen = true;
+        display_block(stolen);
+    } else {
+        flag_stolen = false;
+        display_none(stolen);
+    }
+}
+
+// バントの選択肢を表示
+function showBant() {
+    if (runner_list[0] != 0 || runner_list[1] != 0 || runner_list[2] != 0) {
+        display_block(bant);
+    } else {
+        display_none(bant);
+    }
+}
+
 /* 関数_結果を表示・送信 */
 
 // 結果を表示
 function show_result() {
+    display_none(stolen);
     display_block(result);  // block_result(結果)を表示
+    showRunner();
     document.getElementById("cnt_ball").innerHTML = num2cnt(cnt_ball);  // ボールカウントの表示
     document.getElementById("cnt_strike").innerHTML = num2cnt(cnt_strike);  // ストライクカウントの表示
     document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
 
     // 打球等のイベントの記録
-    console.log(data_hit);
     data_stack.push(data_hit);
 
     // 結果_フォアボール
     if (flag_fourBall == true) {
         data_result = 'フォアボール';
         let move = [0, 0, 0, 0];
-        console.log(runner_list);
         move[0] = 1;
-        move[1] = runner_list[0];
-        move[2] = runner_list[1];
-        move[3] = runner_list[2];
+        if (runner_list[0] == 1) {
+            move[1] = 1;
+        } else {
+            move[1] = 0;
+        }
+        if (move[1] == 1) {
+            if (runner_list[1] == 1) {
+                move[2] = 1;
+            } else {
+                move[2] = 0;
+            }
+        } else {
+            move[1] = runner_list[1];
+        }
+        if (move[2] == 1) {
+            if (runner_list[2] == 1) {
+                move[3] = 1;
+            } else {
+                move[3] = 0;
+            }
+        } else {
+            move[2] = runner_list[2];
+        }
         runner_list[0] = move[0];
         runner_list[1] = move[1];
         runner_list[2] = move[2];
-        console.log(move);
-        console.log(runner_list);
         score[(flag_inningChange + 1) % 2] += move[3];
     }
     if (flag_deadBall == true) {
         data_result = 'デッドボール';
         let move = [0, 0, 0, 0];
-        console.log(runner_list);
         move[0] = 1;
-        move[1] = runner_list[0];
-        move[2] = runner_list[1];
-        move[3] = runner_list[2];
+        if (runner_list[0] == 1) {
+            move[1] = 1;
+        } else {
+            move[1] = 0;
+        }
+        if (move[1] == 1) {
+            if (runner_list[1] == 1) {
+                move[2] = 1;
+            } else {
+                move[2] = 0;
+            }
+        } else {
+            move[1] = runner_list[1];
+        }
+        if (move[2] == 1) {
+            if (runner_list[2] == 1) {
+                move[3] = 1;
+            } else {
+                move[3] = 0;
+            }
+        } else {
+            move[2] = runner_list[2];
+        }
         runner_list[0] = move[0];
         runner_list[1] = move[1];
         runner_list[2] = move[2];
-        console.log(move);
-        console.log(runner_list);
         score[(flag_inningChange + 1) % 2] += move[3];
     }
     // 結果_見逃し三振
@@ -741,9 +871,15 @@ function show_result() {
         data_result = data_position + data_place + data_run + data_hit;
     }
 
+    if (flag_homeRun == true) {
+        runner_list = [0, 0, 0];
+        $('#runner').text('');
+        flag_homeRun = false;
+    }
+
     // バッターの整理
     // バッターが交代するフラグの判定
-    if (flag_batterChange == true) {
+    if (flag_batterChange == true || flag_submit == true) {
         document.getElementById("btn_next").value = "送信";
     } else {
         document.getElementById("btn_next").value = "次へ";
@@ -769,21 +905,40 @@ function show_result() {
 
 // 結果を送信
 function submit() {
+    if (flag_stolen) {
+        display_block(stolen);
+    } else {
+        display_none(stolen);
+    }
     // 結果を送信
-    if (flag_batterChange == true) {
+    if (flag_batterChange) {
         postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(','));
         next();
+    }
+    else if (flag_submit) {
+        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(','));
     }
     $('#data_result').text('');
     $('#change').text('');
     display_none(change);
     data_reset();
-    if (flag_homeRun == true) {
-        runner_list = [0, 0, 0];
-        $('#runner').text('');
-        flag_homeRun = false;
-    }
+
     display_switch(block_next, block_1);
+}
+
+// 試合情報を取得(Ajax)
+function getMatchData() {
+    $.post({
+        url: '/getData/match_data.php',
+        dataType: 'json', //json形式で返すように設定
+        async: false,
+    }).done(function (data) {
+        matchData = data;
+        console.log(data);
+    }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
+        // 失敗時はエラーを吐かせる
+        console.error(errorThrown);
+    })
 }
 
 // データを送信(Ajax)
