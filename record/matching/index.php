@@ -105,6 +105,7 @@ $member = $members->fetch();
                         <input type="button" class="list-group-item list-group-item-action" value="ファウルフライ" onclick="hit(5)">
                         <input type="button" class="list-group-item list-group-item-action" value="バントファウル" onclick="hit(6)">
                         <input type="button" class="list-group-item list-group-item-action" value="バント空振り" onclick="hit(7)">
+                        <input type="button" class="list-group-item list-group-item-action" value="デッドボール" onclick="hit(13)">
                         <input type="button" class="list-group-item list-group-item-action" value="ゴロ" onclick="hit(8)">
                         <input type="button" class="list-group-item list-group-item-action" value="フライ" onclick="hit(9)">
                         <input type="button" class="list-group-item list-group-item-action" value="ヒット" onclick="hit(10)">

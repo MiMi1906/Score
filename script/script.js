@@ -15,8 +15,8 @@ display_none(end_btn);
 // 試合情報
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let cnt_inning = 1;
-let flag_inningChange = 1;
+let cnt_inning = 9;
+let flag_inningChange = 0;
 let attack_flag = 0;
 
 let runner_list = [0, 0, 0];
@@ -155,6 +155,7 @@ function data_reset() {
 
 // 打球判定
 function hit(value) {
+    flag_showResult = false;
     value_hit = value;
     switch (value_hit) {
         case 1:
@@ -223,6 +224,13 @@ function hit(value) {
             score[(flag_inningChange + 1) % 2] += runner_list[0] + runner_list[1] + runner_list[2] + 1;
             flag_homeRun = true;
             break;
+        case 13:
+            data_hit = 'デッドボール';
+            flag_deadBall = true;
+            cnt_ball = 0;
+            cnt_strike = 0;
+            flag_batterChange = true;
+            flag_showResult = true;
         default:
             break;
     }
@@ -236,7 +244,7 @@ function hit(value) {
     }
 
     // 次へ進む
-    if (value_hit <= 4 || value_hit == 6 || value_hit == 7) {
+    if (value_hit <= 4 || value_hit == 6 || value_hit == 7 || value_hit == 13) {
         display_switch(block_1, block_next);
         flag_showResult = true;
     }
@@ -596,6 +604,8 @@ function next() {
     cnt_strike = 0;
     flag_reset();
 
+    data_stack = [];
+
     // スリーアウトでチェンジ
     if (cnt_out >= 3) {
         if (flag_inningChange == 0) {
@@ -679,11 +689,27 @@ function show_result() {
     document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
 
     // 打球等のイベントの記録
+    console.log(data_hit);
     data_stack.push(data_hit);
 
     // 結果_フォアボール
     if (flag_fourBall == true) {
         data_result = 'フォアボール';
+        let move = [0, 0, 0, 0];
+        console.log(runner_list);
+        move[0] = 1;
+        move[1] = runner_list[0];
+        move[2] = runner_list[1];
+        move[3] = runner_list[2];
+        runner_list[0] = move[0];
+        runner_list[1] = move[1];
+        runner_list[2] = move[2];
+        console.log(move);
+        console.log(runner_list);
+        score[(flag_inningChange + 1) % 2] += move[3];
+    }
+    if (flag_deadBall == true) {
+        data_result = 'デッドボール';
         let move = [0, 0, 0, 0];
         console.log(runner_list);
         move[0] = 1;

@@ -10,6 +10,9 @@ $db = dbConnect();
 
 $tpl = new Template();
 
+$myBatterList = [];
+$oppBatterList = [];
+
 if (!empty($_POST)) {
     if ($_POST['date'] == '') $error = 'blank';
     else if ($_POST['matchName'] == '')  $error = 'blank';
@@ -23,19 +26,76 @@ if (!empty($_POST)) {
     else if ($_POST['judge'][2] == '') $error = 'blank';
     else if ($_POST['judge'][3] == '') $error = 'blank';
     else if ($_POST['recorder'] == '') $error = 'blank';
-    else if (empty($_POST['myBatter'])) {
+
+    if (!empty($_POST['myBatter'])) {
         foreach ($_POST['myBatter'] as $myBatter) {
             if ($myBatter == '') {
                 $error = 'blank';
                 break;
+            } else {
+                $myBatterList[]['batterName'] = $myBatter;
             }
         }
-    } else if (empty($_POST['oppBatter'])) {
+    }
+    if (!empty($_POST['oppBatter'])) {
         foreach ($_POST['oppBatter'] as $oppBatter) {
             if ($oppBatter == '') {
                 $error = 'blank';
                 break;
+            } else {
+                $oppBatterList[]['batterName'] = $oppBatter;
             }
+        }
+    }
+    $i = 0;
+    if (!empty($_POST['myBatterIndex'])) {
+        foreach ($_POST['myBatterIndex'] as $myBatterIndex) {
+            if ($myBatterIndex == '') {
+                $error = 'blank';
+                break;
+            } else {
+                $myBatterList[$i]['batterIndex'] = $myBatterIndex;
+            }
+            $i++;
+        }
+    }
+
+    $i = 0;
+    if (!empty($_POST['oppBatterIndex'])) {
+        foreach ($_POST['oppBatterIndex'] as $oppBatterIndex) {
+            if ($oppBatterIndex == '') {
+                $error = 'blank';
+                break;
+            } else {
+                $oppBatterList[$i]['batterIndex'] = $oppBatterIndex;
+            }
+            $i++;
+        }
+    }
+
+    $i = 0;
+    if (!empty($_POST['myBatterLR'])) {
+        foreach ($_POST['myBatterLR'] as $myBatterLR) {
+            if ($myBatterLR == '') {
+                $error = 'blank';
+                break;
+            } else {
+                $myBatterList[$i]['batterLR'] = $myBatterLR;
+            }
+            $i++;
+        }
+    }
+
+    $i = 0;
+    if (!empty($_POST['oppBatterLR'])) {
+        foreach ($_POST['oppBatterLR'] as $oppBatterLR) {
+            if ($oppBatterLR == '') {
+                $error = 'blank';
+                break;
+            } else {
+                $oppBatterList[$i]['batterLR'] = $oppBatterLR;
+            }
+            $i++;
         }
     }
 
@@ -53,8 +113,8 @@ if (!empty($_POST)) {
 
         $sql = 'INSERT INTO 
         matches(
-            member_id, 
-            match_id, 
+            member_id,
+            match_id,
             date,
             match_name,
             stadium_name,
@@ -88,14 +148,14 @@ if (!empty($_POST)) {
         $stmt->bindValue(':member_id', $_SESSION['id']);
         $stmt->bindValue(':match_id', $match_id);
         $stmt->bindValue(':date', $_POST['date']);
-        $stmt->bindValue(':matchName', $_POST['matchName']);
+        $stmt->bindValue(':match_name', $_POST['matchName']);
         $stmt->bindValue(':stadium_name', $_POST['stadiumName']);
         $stmt->bindValue(':condition', $_POST['condition']);
         $stmt->bindValue(':weather', $_POST['weather']);
-        $stmt->bindValue(':judge0', $_POST['judge0']);
-        $stmt->bindValue(':judge1', $_POST['judge1']);
-        $stmt->bindValue(':judge2', $_POST['judge2']);
-        $stmt->bindValue(':judge3', $_POST['judge3']);
+        $stmt->bindValue(':judge0', $_POST['judge'][0]);
+        $stmt->bindValue(':judge1', $_POST['judge'][1]);
+        $stmt->bindValue(':judge2', $_POST['judge'][2]);
+        $stmt->bindValue(':judge3', $_POST['judge'][3]);
         $stmt->bindValue(':recorder', $_POST['recorder']);
         $stmt->bindValue(':my_team_name', $_POST['myTeam']);
         $stmt->bindValue(':opp_team_name', $_POST['oppTeam']);
@@ -103,26 +163,30 @@ if (!empty($_POST)) {
 
         $_SESSION['match_id'] = $match_id;
 
-        $batter_index_cnt = 1;
-        foreach ($_POST['myBatter'] as $myBatter) {
-            $sql = 'INSERT INTO batters(match_id, team_flag, batter_index, batter_name) VALUES(:match_id, :team_flag, :batter_index, :batter_name)';
+        $batter_index_cnt = 0;
+        foreach ($myBatterList as $myBatter) {
+            $sql = 'INSERT INTO batters(match_id, team_flag, batter_index, batter_name, batter_back_num, flag_LR) VALUES(:match_id, :team_flag, :batter_index, :batter_name, :batter_back_num, :flag_LR)';
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':match_id', $_SESSION['match_id']);
             $stmt->bindValue(':team_flag', MY_TEAM);
-            $stmt->bindValue(':batter_index', $batter_index_cnt);
-            $stmt->bindValue(':batter_name', $myBatter);
+            $stmt->bindValue(':batter_index', $batter_index_cnt + 1);
+            $stmt->bindValue(':batter_name', $myBatter['batterName']);
+            $stmt->bindValue(':batter_back_num', $myBatter['batterIndex']);
+            $stmt->bindValue(':flag_LR', $myBatter['batterLR']);
             $stmt->execute();
             $batter_index_cnt++;
         }
 
-        $batter_index_cnt = 1;
-        foreach ($_POST['oppBatter'] as $oppBatter) {
-            $sql = 'INSERT INTO batters(match_id, team_flag, batter_index, batter_name) VALUES(:match_id, :team_flag, :batter_index, :batter_name)';
+        $batter_index_cnt = 0;
+        foreach ($oppBatterList as $oppBatter) {
+            $sql = 'INSERT INTO batters(match_id, team_flag, batter_index, batter_name, batter_back_num, flag_LR) VALUES(:match_id, :team_flag, :batter_index, :batter_name, :batter_back_num, :flag_LR)';
             $stmt = $db->prepare($sql);
             $stmt->bindValue(':match_id', $_SESSION['match_id']);
             $stmt->bindValue(':team_flag', OPP_TEAM);
-            $stmt->bindValue(':batter_index', $batter_index_cnt);
-            $stmt->bindValue(':batter_name', $oppBatter);
+            $stmt->bindValue(':batter_index', $batter_index_cnt + 1);
+            $stmt->bindValue(':batter_name', $oppBatter['batterName']);
+            $stmt->bindValue(':batter_back_num', $oppBatter['batterIndex']);
+            $stmt->bindValue(':flag_LR', $oppBatter['batterLR']);
             $stmt->execute();
             $batter_index_cnt++;
         }

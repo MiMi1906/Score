@@ -42,7 +42,7 @@ $matches = $stmt->fetchAll();
 
   <div class="container">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <div class="card">
           <div class="card-header">
             試合を開始
@@ -59,7 +59,7 @@ $matches = $stmt->fetchAll();
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-6 mb-3">
         <div class="card">
           <div class="card-header">
             試合結果を見る
