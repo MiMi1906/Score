@@ -34,7 +34,7 @@ $member = $members->fetch();
 
 <body>
     <div id="loading">
-        <div class="spinner-border text-secondary" role="status">
+        <div class="spinner-border text-success" role="status">
             <span class="visually-hidden">Loading...</span>
         </div>
     </div>
@@ -56,7 +56,7 @@ $member = $members->fetch();
                     <div class="card-body">
                         <h4 class="batter card-title">
                             <span id="batter_index">　</span>
-                            <span id="batter_name">　</span>
+                            <span id="batter_name" class="align-item-center">　</span>
                         </h4>
                         <hr>
                         <div id="result" class=" card-text">
@@ -89,11 +89,11 @@ $member = $members->fetch();
 
                 </div>
                 <div id="end_btn" class="text-end">
-                    <a href="/record/end_match/" class="btn btn-secondary">終了</a>
+                    <a href="/record/end_match/" class="btn btn-success">終了</a>
                 </div>
                 <div id="block_next">
                     <div class="text-end">
-                        <input type="button" class="btn btn-secondary" id="btn_next" value="次へ" onclick="display_none(block_next); submit()">
+                        <input type="button" class="btn btn-success" id="btn_next" value="次へ" onclick="display_none(block_next); submit()">
                     </div>
                 </div>
                 <div id="select_block">

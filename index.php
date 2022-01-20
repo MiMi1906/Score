@@ -41,53 +41,47 @@ $matches = $stmt->fetchAll();
 <body>
 
   <div class="container">
-    <div class="row">
-      <div class="col-md-6 mb-3">
+    <div class="row justify-content-around">
+      <div class="col-md-5 mb-3">
         <div class="card mb-3">
           <div class="card-body">
             <h4 class="card-title mb-3">
-              最近の試合
+              NEWS
             </h4>
+            <hr>
             <div class="card-text">
-              <h5>○○ vs △△</h5>
-              <p>
-                3 - 5
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="card mb-3">
-          <div class="card-header">
-            試合を開始
-          </div>
-          <div class="card-body">
-            <div class="card-text">
-              <p>
-                新しく記録を開始します
-              </p>
-              <div class="d-grid gap-2">
-                <a href="/record/" class="btn btn-primary">試合記録を開始</a>
-              </div>
+              <!-- <h6 class="mb-3">NEWS</h6> -->
+              <ul class="list-group list-group-flush">
+                <a href="#" class="list-group-item text-dark">v.0.0.4をリリースしました</a>
+                <a href="#" class="list-group-item text-dark">v.0.0.3をリリースしました</a>
+                <a href="#" class="list-group-item text-dark">v.0.0.2をリリースしました</a>
+                <a href="#" class="list-group-item text-dark">v.0.0.1をリリースしました</a>
+              </ul>
             </div>
           </div>
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <div class="card">
-          <div class="card-header">
-            試合結果を見る
-          </div>
-          <div class="card-body">
-            <div class="card-text">
-              <?php
-              foreach ($matches as $match) {
-                print('<p>' . $match['match_name'] . '</p>');
-                print('<p>' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</p>');
-              }
-              ?>
-            </div>
-          </div>
+        <h4 class="mb-3">
+          試合を開始
+        </h4>
+        <div class="shadow p-3 mb-5 bg-light rounded">
+          <h5>新しく記録を開始します</h5>
+          <hr>
+          <a href="/record/" class="btn btn-success">試合記録を開始</a>
         </div>
+        <h4 class="mb-3">試合結果を見る</h4>
+        <?php
+        foreach ($matches as $match) {
+          print('<div class="shadow p-3 mb-3 bg-light rounded">');
+          print('<a href="/view/?match_id=' . $match['match_id'] . '" class="text-dark" style="text-decoration: none;">');
+          print('<h5>' . $match['match_name'] . '</h5>');
+          print('<hr>');
+          print('<div>' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</div>');
+          print('</a>');
+          print('</div>');
+        }
+        ?>
       </div>
     </div>
   </div>

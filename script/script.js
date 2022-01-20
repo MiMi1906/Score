@@ -132,7 +132,6 @@ function num2cnt(cnt) {
         default:
             break;
     }
-
     return show_cnt;
 }
 
@@ -235,7 +234,7 @@ function hit(value) {
             cnt_ball = 0;
             cnt_strike = 0;
             value_run = 4;
-            score[(flag_inningChange + 1) % 2] += runner_list[0] + runner_list[1] + runner_list[2] + 1;
+            score[attack_flag] += runner_list[0] + runner_list[1] + runner_list[2] + 1;
             flag_homeRun = true;
             break;
         case 12:
@@ -243,7 +242,7 @@ function hit(value) {
             cnt_ball = 0;
             cnt_strike = 0;
             value_run = 4;
-            score[(flag_inningChange + 1) % 2] += runner_list[0] + runner_list[1] + runner_list[2] + 1;
+            score[attack_flag] += runner_list[0] + runner_list[1] + runner_list[2] + 1;
             flag_homeRun = true;
             break;
         case 13:
@@ -556,7 +555,7 @@ function setRunner() {
     value_run = br;
 
     // 点数を計算
-    score[(flag_inningChange + 1) % 2] += hb;
+    score[attack_flag] += hb;
 
     // ツーベース
     if (value_run == 2) {
@@ -819,7 +818,7 @@ function show_result() {
         runner_list[0] = move[0];
         runner_list[1] = move[1];
         runner_list[2] = move[2];
-        score[(flag_inningChange + 1) % 2] += move[3];
+        score[attack_flag] += move[3];
     }
     if (flag_deadBall == true) {
         data_result = 'デッドボール';
@@ -851,7 +850,7 @@ function show_result() {
         runner_list[0] = move[0];
         runner_list[1] = move[1];
         runner_list[2] = move[2];
-        score[(flag_inningChange + 1) % 2] += move[3];
+        score[attack_flag] += move[3];
     }
     // 結果_見逃し三振
     if (flag_missedStrikeOut == true) {
@@ -893,7 +892,7 @@ function show_result() {
     }
 
     if (cnt_out >= 3) {
-        if (!(cnt_inning >= 9) && !(flag_inningChange == 0)) {
+        if (!(cnt_inning >= 9)) {
             display_block(change);
             document.getElementById("change").innerHTML = '<div class="alert alert-warning" role="alert">' + 'チェンジ' + '</div>'
         } else {
@@ -912,11 +911,11 @@ function submit() {
     }
     // 結果を送信
     if (flag_batterChange) {
-        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(','));
+        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), batterIndex_list[attack_flag] - 1, cnt_inning, (flag_inningChange + 1) % 2);
         next();
     }
     else if (flag_submit) {
-        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(','));
+        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), batterIndex_list[attack_flag] - 1, cnt_inning, (flag_inningChange + 1) % 2);
     }
     $('#data_result').text('');
     $('#change').text('');
@@ -942,7 +941,7 @@ function getMatchData() {
 }
 
 // データを送信(Ajax)
-function postData(team_flag, result, position, place, b_runner, ball_array) {
+function postData(team_flag, result, position, place, b_runner, ball_array, batter_index, inning, attack_flag) {
     $.post({
         url: '/writeData/play_data.php',
         data: {
@@ -952,6 +951,9 @@ function postData(team_flag, result, position, place, b_runner, ball_array) {
             'place': place,
             'b_runner': b_runner,
             'ball_array': ball_array,
+            'batter_index': batter_index,
+            'inning': inning,
+            'attack_flag': attack_flag,
         },
         dataType: 'text', //json形式で返すように設定
     }).done(function (data) {
@@ -972,8 +974,13 @@ function showBatterName(batter_index, team_flag) {
         },
         dataType: 'json', // json形式で返すように設定
     }).done(function (data) {
-        $('#batter_index').text(data.batter_index + '番');
-        $('#batter_name').text(data.batter_name);
+        $('#batter_index').html(data.batter_index + '番');
+        if (data.flag_LR == 'left') {
+            data.flag_LR = '左打ち';
+        } else {
+            data.flag_LR = '右打ち';
+        }
+        $('#batter_name').html(data.batter_name + '<span class="mx-2" style="font-size: 14px">' + data.flag_LR + '</span>');
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
         // 失敗時はエラーを吐かせる
         console.error(errorThrown);
