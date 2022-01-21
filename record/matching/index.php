@@ -8,8 +8,6 @@ loginCheck();
 // データベース接続
 $db = dbConnect();
 
-$tpl = new Template();
-
 $sql = 'SELECT * FROM members WHERE id = :id';
 $members = $db->prepare($sql);
 $members->bindValue(':id', $_SESSION['id']);
@@ -29,7 +27,7 @@ $member = $members->fetch();
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/customize.css">
 
-    <title>Score</title>
+    <title>試合中 / Score</title>
 </head>
 
 <body>
@@ -59,7 +57,7 @@ $member = $members->fetch();
                             <span id="batter_name" class="align-item-center">　</span>
                         </h4>
                         <hr>
-                        <div id="result" class=" card-text">
+                        <div id="result" class="card-text">
                             <div class=" cnt">
                                 <span class="title">B</span><span id="cnt_ball" class="cnt_ball cnt_num"></span>
                             </div>

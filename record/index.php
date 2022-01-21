@@ -8,8 +8,6 @@ loginCheck();
 // データベース接続
 $db = dbConnect();
 
-$tpl = new Template();
-
 $myBatterList = [];
 $oppBatterList = [];
 
@@ -218,17 +216,17 @@ if (!empty($_POST)) {
 <body>
     <div class="container">
         <form action="" method="post">
+            <?php
+            if (!empty($error)) {
+                echo '<div class="alert alert-danger">必要情報をすべて入力してください</div>';
+            }
+            ?>
             <div class="card mb-3">
                 <div class="card-header">
                     試合情報
                 </div>
                 <div class="card-body">
                     <div class="card-text">
-                        <?php
-                        if (!empty($error)) {
-                            echo '<div class="error">必要情報をすべて入力してください</div>';
-                        }
-                        ?>
                         <div class="row">
                             <div class="col-lg">
                                 <div class="form-floating mb-3">

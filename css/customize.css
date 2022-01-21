@@ -7,7 +7,11 @@
 }
 
 body {
-  padding-top: 2rem;
+  /* padding-top: 2rem; */
+  background-position: center center;
+  background-size: cover;
+  background-image: url(/image/background.jpg);
+  background-attachment: fixed;
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -26,10 +30,15 @@ input[type="number"] {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 90vh;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  background-color: #fff;
+  background-color: rgba(255, 255, 255, .5);
+}
+
+#loading *{
+  margin: 0;
+  padding: 0;
 }
 
 #wrap{
@@ -37,6 +46,7 @@ input[type="number"] {
 }
 
 .container {
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 

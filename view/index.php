@@ -8,8 +8,6 @@ loginCheck();
 // データベース接続
 $db = dbConnect();
 
-$tpl = new Template();
-
 if (!empty($_GET)) {
   $sql = 'SELECT * FROM records WHERE match_id = :match_id AND team_flag = :team_flag';
   $stmt = $db->prepare($sql);
@@ -58,12 +56,30 @@ if (!empty($_GET)) {
                                                                                                                           echo 'text-success bg-white';
                                                                                                                         } ?>" style="max-width: 400px;">対戦チーム</a>
     </nav>
-    <?php
-    print('<pre>');
-    print_r($records);
-    // print_r($batters);
-    print('</pre>');
-    ?>
+    <hr>
+    <?php foreach ($records as $record) : ?>
+      <div class="shadow p-3 mb-2 bg-light rounded">
+        <?php
+        $inning_str = '';
+        $inning_str .= $record['inning'] . '回';
+        if ($record['attack_flag'] == 0) {
+          $inning_str .= '表';
+        } else {
+          $inning_str .= '裏';
+        }
+
+        $batter_str = '';
+        if ($record['batter_index'] != '') {
+          $batter_str .= $record['batter_index'] . '番 ';
+          $batter_str .= $batters[$record['batter_index']]['batter_name'];
+        }
+        ?>
+        <p><?php echo $inning_str; ?><small class="text-muted mx-3"><?php echo $batter_str; ?></small></p>
+        <hr>
+        <p class="text-success"><b><?php echo $record['result']; ?></b></p>
+        <small class="text-muted"><?php echo $record['ball_array']; ?></small>
+      </div>
+    <?php endforeach; ?>
   </div>
 
   <!-- script -->

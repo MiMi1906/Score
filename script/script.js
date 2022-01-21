@@ -454,6 +454,28 @@ function place(value) {
 
 // ランナー判定
 function showRunnerList() {
+    display_block(brsel);
+    display_block(br0);
+    display_block(br1);
+    display_block(br2);
+    display_block(br3);
+    display_block(br4);
+    display_block(frsel);
+    display_block(fr0);
+    display_block(fr1);
+    display_block(fr2);
+    display_block(fr3);
+    display_block(fr4);
+    display_block(srsel);
+    display_block(sr0);
+    display_block(sr2);
+    display_block(sr3);
+    display_block(sr4);
+    display_block(trsel);
+    display_block(tr0);
+    display_block(tr3);
+    display_block(tr4);
+
     if (flag_stolen) {
         display_none(batter_runner);
         display_none(fr1);
@@ -913,9 +935,12 @@ function submit() {
     if (flag_batterChange) {
         postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), batterIndex_list[attack_flag] - 1, cnt_inning, (flag_inningChange + 1) % 2);
         next();
+        data_stack = [];
     }
     else if (flag_submit) {
-        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), batterIndex_list[attack_flag] - 1, cnt_inning, (flag_inningChange + 1) % 2);
+        postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), '', cnt_inning, (flag_inningChange + 1) % 2);
+        flag_stolen = false;
+        data_stack = [];
     }
     $('#data_result').text('');
     $('#change').text('');
@@ -980,7 +1005,7 @@ function showBatterName(batter_index, team_flag) {
         } else {
             data.flag_LR = '右打ち';
         }
-        $('#batter_name').html(data.batter_name + '<span class="mx-2" style="font-size: 14px">' + data.flag_LR + '</span>');
+        $('#batter_name').html(data.batter_name + '<small class="text-muted mx-2" style="font-size: 14px;">' + data.flag_LR + '</small>');
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
         // 失敗時はエラーを吐かせる
         console.error(errorThrown);

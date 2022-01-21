@@ -1,4 +1,9 @@
 <?php
+/*!
+  * TITLE : Home / Score
+  * PATH : /root/index.php
+  * FINAL UPDATE : 01.20.2022
+  */
 require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
@@ -7,8 +12,6 @@ loginCheck();
 
 // データベース接続
 $db = dbConnect();
-
-$tpl = new Template();
 
 $sql = 'SELECT * FROM members WHERE id = :id';
 $members = $db->prepare($sql);
@@ -35,7 +38,7 @@ $matches = $stmt->fetchAll();
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/customize.css">
 
-  <title>Score</title>
+  <title>Home / Score</title>
 </head>
 
 <body>
@@ -62,26 +65,34 @@ $matches = $stmt->fetchAll();
         </div>
       </div>
       <div class="col-md-6 mb-3">
-        <h4 class="mb-3">
-          試合を開始
-        </h4>
-        <div class="shadow p-3 mb-5 bg-light rounded">
-          <h5>新しく記録を開始します</h5>
-          <hr>
-          <a href="/record/" class="btn btn-success">試合記録を開始</a>
+        <div class="card mb-3">
+          <div class="card-body">
+            <h4>試合を開始</h4>
+            <hr>
+            <div class="shadow p-3 mb-3 bg-light rounded">
+              <h5>新しく記録を開始します</h5>
+              <hr>
+              <a href="/record/" class="btn btn-success">試合記録を開始</a>
+            </div>
+          </div>
         </div>
-        <h4 class="mb-3">試合結果を見る</h4>
-        <?php
-        foreach ($matches as $match) {
-          print('<div class="shadow p-3 mb-3 bg-light rounded">');
-          print('<a href="/view/?match_id=' . $match['match_id'] . '" class="text-dark" style="text-decoration: none;">');
-          print('<h5>' . $match['match_name'] . '</h5>');
-          print('<hr>');
-          print('<div>' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</div>');
-          print('</a>');
-          print('</div>');
-        }
-        ?>
+        <div class="card">
+          <div class="card-body">
+            <h4>試合結果を見る</h4>
+            <hr>
+            <?php
+            foreach ($matches as $match) {
+              print('<div class="shadow p-3 mb-3 bg-light rounded">');
+              print('<a href="/view/?match_id=' . $match['match_id'] . '&team_flag=0" class="text-dark" style="text-decoration: none;">');
+              print('<h5>' . $match['match_name'] . '</h5>');
+              print('<hr>');
+              print('<div>' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</div>');
+              print('</a>');
+              print('</div>');
+            }
+            ?>
+          </div>
+        </div>
       </div>
     </div>
   </div>
