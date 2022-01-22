@@ -17,7 +17,7 @@ $members->bindValue(':id', $_SESSION['id']);
 $members->execute();
 $member = $members->fetch();
 
-$sql = 'SELECT * FROM matches WHERE member_id = :member_id ORDER BY id DESC LIMIT 0 OFFSET 10';
+$sql = 'SELECT * FROM matches WHERE member_id = :member_id ORDER BY id DESC LIMIT 10';
 $stmt = $db->prepare($sql);
 $stmt->bindValue(':member_id', $member['id']);
 $stmt->execute();
