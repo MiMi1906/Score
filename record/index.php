@@ -222,7 +222,7 @@ if (!empty($_POST)) {
             }
             ?>
             <div class="card mb-3">
-                <div class="card-header">
+                <div class="card-header text-white bg-success">
                     試合情報
                 </div>
                 <div class="card-body">
@@ -285,7 +285,7 @@ if (!empty($_POST)) {
             <div class="row">
                 <div class="col-lg">
                     <div class="card mb-3">
-                        <div class="card-header">
+                        <div class="card-header text-white bg-success">
                             選手名簿 (自チーム)
                         </div>
                         <div class="card-body">
@@ -549,7 +549,7 @@ if (!empty($_POST)) {
                 </div>
                 <div class="col-lg">
                     <div class="card mb-3">
-                        <div class="card-header">
+                        <div class="card-header text-white bg-success">
                             選手名簿 (対戦チーム)
                         </div>
                         <div class="card-body">

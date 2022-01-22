@@ -22,14 +22,6 @@ if (!empty($_POST)) {
     $error['password'] = 'blank';
   }
 
-  if (!empty($_FILES['image']['name'])) {
-    $fileName = $_FILES['image']['name'];
-    $ext = substr($fileName, -3);
-    if ($ext != 'jpg' && $ext != 'gif' && $ext != 'png') {
-      $error['image'] = 'type';
-    }
-  }
-
   if (empty($error['email'])) {
     $sql = 'SELECT COUNT(*) FROM members WHERE email = :email';
     $stmt = $db->prepare($sql);
@@ -42,15 +34,7 @@ if (!empty($_POST)) {
   }
 
   if (empty($error)) {
-    if (!empty($_FILES['image']['name'])) {
-      // 画像をアップロードする
-      $image = date('YmdHis') . $_FILES['image']['name'];
-      move_uploaded_file($_FILES['image']['tmp_name'], '../resource/image/icon/' . $image);
-    } else {
-      $image = 'default.png';
-    }
     $_SESSION['join'] = $_POST;
-    $_SESSION['join']['image'] = $image;
     header('Location: /join/check/');
     exit();
   }
@@ -70,70 +54,82 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/general.css">
-  <title>議事録アプリ</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/customize.css">
+  <title>メンバー登録 / Score</title>
 </head>
 
-<body>
-  <div class="login_form_background">
-    <div class="content login_form join_form">
-      <div class="logo">Gijiroku</div>
-      <div class="exp">メンバー登録</div>
-      <form action="" method="post" enctype="multipart/form-data">
-        <div class="label">ニックネーム</div>
-        <input type="text" name="name" placeholder="Score" id="" class="login_form_input" value="<?php if (!empty($_POST['name'])) echo h($_POST['name']); ?>">
-        <?php if (!empty($error['name']) && $error['name'] == 'blank') : ?>
-          <div class="error">
-            ニックネームを入力してください
+
+<body id="login-form" class="bg-success">
+  <div class="container" style="max-width: 800px">
+    <div class="card py-5 px-3 text-center">
+      <div class="card-title">
+        <img src="/image/logo.png" alt="" class="w-50" style="max-width: 150px">
+        <h6 class="mt-3 text-secondary">メンバー登録</h6>
+      </div>
+      <div class="card-text">
+        <form action="" method="post">
+          <div class="form-floating my-3 mx-auto w-75 text-start">
+            <input type="text" class="form-control <?php if (!empty($error['name']) && $error['name'] == 'blank') {
+                                                      echo 'is-invalid';
+                                                    } else if (!empty($_POST)) {
+                                                      echo 'is-valid';
+                                                    } ?>" name="name" id="floatingName" placeholder="name" value="<?php if (!empty($_POST['name'])) {
+                                                                                                                    echo $_POST['name'];
+                                                                                                                  } ?>">
+            <label for="floatingName" class="label-placeholder">ニックネーム</label>
+            <?php if (!empty($error['name']) && $error['name'] == 'blank') : ?>
+              <div class="invalid-feedback">
+                ニックネームを入力してください
+              </div>
+            <?php endif; ?>
           </div>
-        <?php endif; ?>
-        <div class="label">メールアドレス</div>
-        <input type="email" name="email" placeholder="score@example.com" id="" class="login_form_input" value=" <?php if (!empty($_POST['email'])) echo h($_POST['email']); ?>">
-        <?php if (!empty($error['email']) && $error['email'] == 'blank') : ?>
-          <div class="error">
-            メールアドレスを入力してください
+
+          <div class="form-floating my-3 mx-auto w-75 text-start">
+            <input type="email" class="form-control <?php if (!empty($error['email']) && ($error['email'] == 'blank' || $error['email'] == 'duplicate')) {
+                                                      echo 'is-invalid';
+                                                    } else if (!empty($_POST)) {
+                                                      echo 'is-valid';
+                                                    } ?>" name="email" id="floatingEmail" placeholder="email" value="<?php if (!empty($_POST['email'])) {
+                                                                                                                        echo $_POST['email'];
+                                                                                                                      } ?>">
+            <label for="floatingEmail" class="label-placeholder">メールアドレス</label>
+            <?php if (!empty($error['email']) && $error['email'] == 'blank') : ?>
+              <div class="invalid-feedback">
+                メールアドレスを入力してください
+              </div>
+            <?php endif; ?>
+            <?php if (!empty($error['email']) && $error['email'] == 'duplicate') : ?>
+              <div class="invalid-feedback">
+                このメールアドレスはすでに登録されています
+              </div>
+            <?php endif; ?>
           </div>
-        <?php endif; ?>
-        <?php if (!empty($error['email']) && $error['email'] == 'duplicate') : ?>
-          <div class="error">
-            このメールアドレスはすでに登録されています
+
+          <div class="form-floating my-3 mx-auto w-75 text-start">
+            <input type="password" class="form-control <?php if (!empty($error['password']) && ($error['password'] == 'blank' || $error['email'] == 'length')) {
+                                                          echo 'is-invalid';
+                                                        } else if (!empty($_POST)) {
+                                                          echo 'is-valid';
+                                                        } ?>" name="password" id="floatingPassword" placeholder="password">
+            <label for="floatingPassword" class="label-placeholder">パスワード</label>
+            <?php if (!empty($error['password']) && $error['password'] == 'blank') : ?>
+              <div class="invalid-feedback">
+                パスワードを入力してください
+              </div>
+            <?php endif; ?>
+            <?php if (!empty($error['password']) && $error['password'] == 'length') : ?>
+              <div class="invalid-feedback">
+                パスワードは4文字以上で入力してください
+              </div>
+            <?php endif; ?>
           </div>
-        <?php endif; ?>
-        <div class="label">パスワード</div>
-        <input type="password" name="password" placeholder="Password" id="" class="login_form_input">
-        <?php if (!empty($error['password']) && $error['password'] == 'blank') : ?>
-          <div class="error">
-            パスワードを入力してください
-          </div>
-        <?php endif; ?>
-        <?php if (!empty($error['password']) && $error['password'] == 'length') : ?>
-          <div class="error">
-            パスワードは4文字以上で入力してください
-          </div>
-        <?php endif; ?>
-        <div class="label">アイコン画像</div>
-        <label class="file_input_btn">
-          <input type="file" name="image" class="file_input" accept="image/*"><span class="file_name">ファイルを選択</span>
-        </label>
-        <div class="file_input_alert">
-          <?php if (!empty($error['image']) && $error['image'] == 'type') : ?>
-            <div class="error">.gif, .jpg, .png の画像を指定してください</div>
-          <?php elseif (!empty($error) && empty($error['image'])) : ?>
-            <div class="error">もう一度選択してください</div>
-          <?php else : ?>
-            選択されていません
-          <?php endif; ?>
-        </div>
-        <input type="submit" class="submit_btn" value="入力内容を確認">
-      </form>
-      <div class="login">
-        アカウントをお持ちの方は<a href="/login/">ログイン</a>
+          <input type="submit" class="btn btn-success my-3 py-2 px-4 rounded-pill" value="入力内容を確認">
+        </form>
+        <p class="text-secondary">アカウントをお持ちの方は <a href="/join/" class="text-success">ログイン</a></p>
       </div>
     </div>
   </div>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-  <script src="/script/file_input.js"></script>
-
 </body>
 
 </html>

@@ -6,8 +6,6 @@ session_start();
 // データベース接続
 $db = dbConnect();
 
-$tpl = new Template();
-
 if (!empty($_COOKIE['email'])) {
   $_POST['email'] = $_COOKIE['email'];
   $_POST['password'] = $_COOKIE['password'];
@@ -56,30 +54,40 @@ if (!empty($_POST)) {
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
-  <link rel="stylesheet" href="/css/general.css">
-  <title>Score</title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/customize.css">
+  <title>ログイン / Score</title>
 </head>
 
-<body>
-  <div class="login_form_background">
-    <div class="content login_form">
-      <div class="logo">Score</div>
-      <form action="" method="post">
-        <?php if (!empty($error['login']) && $error['login'] == 'blank') : ?>
-          <div class="error">メールアドレスとパスワードを入力してください</div>
-        <?php endif; ?>
-        <?php if (!empty($error['login']) && $error['login'] == 'failed') : ?>
-          <div class="error">メールアドレスかパスワードが間違っています</div>
-        <?php endif; ?>
-        <div class="label">メールアドレス</div>
-        <input type="email" name="email" placeholder="score@example.com" class="login_form_input" id="" value="<?php if (!empty($_POST['email'])) echo h($_POST['email']) ?>"><br>
-        <div class="label">パスワード</div>
-        <input type="password" name="password" placeholder="Password" id="" class="login_form_input"><br>
-        <input type="hidden" name="save" id="" value="on">
-        <input type="submit" class="submit_btn" value="ログインする">
-      </form>
-      <div class="join">
-        アカウントをお持ちでない方は<a href="/join/">こちら</a>
+<body id="login-form" class="bg-success">
+  <div class="container" style="max-width: 800px">
+    <div class="card py-5 px-3 text-center">
+      <div class="card-title">
+        <img src="/image/logo.png" alt="" class="w-50" style="max-width: 150px">
+        <h6 class="mt-3 text-secondary">ログイン</h6>
+      </div>
+      <div class="card-text">
+        <form action="" method="post">
+          <?php if (!empty($error['login']) && $error['login'] == 'blank') : ?>
+            <div class="alert alert-danger w-75 my-3 mx-auto">メールアドレスとパスワードを入力してください</div>
+          <?php endif; ?>
+          <?php if (!empty($error['login']) && $error['login'] == 'failed') : ?>
+            <div class="alert alert-danger w-75 my-3 mx-auto">メールアドレスかパスワードが間違っています</div>
+          <?php endif; ?>
+          <div class="form-floating my-3 mx-auto w-75">
+            <input type="email" class="form-control" name="email" id="floatingEmail" placeholder="email" value="<?php if (!empty($_POST['email'])) {
+                                                                                                                  echo $_POST['email'];
+                                                                                                                } ?>">
+            <label for="floatingEmail" class="label-placeholder">メールアドレス</label>
+          </div>
+          <div class="form-floating my-3 mx-auto w-75">
+            <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="password">
+            <label for="floatingPassword" class="label-placeholder">パスワード</label>
+          </div>
+          <input type="hidden" name="save" id="" value="on">
+          <input type="submit" class="btn btn-success my-3 py-2 px-4 rounded-pill" value="ログインする">
+        </form>
+        <p class="text-secondary">アカウントをお持ちでない方は <a href="/join/" class="text-success">メンバー登録</a></p>
       </div>
     </div>
   </div>

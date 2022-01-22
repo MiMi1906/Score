@@ -8,15 +8,16 @@ define('OPP_TEAM', 1);
 // データベース接続 (SQLite3)
 function dbConnect()
 {
-  $dbPath = $_SERVER['DOCUMENT_ROOT'] . '/DATABASE';
   try {
-    $db = new PDO('sqlite:' . $dbPath);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    $url = parse_url(getenv('DATABASE_URL'));
+    $dsn = sprintf('pgsql:host=%s;dbname=%s', $url['host'], substr($url['path'], 1));
+    $pdo = new PDO($dsn, $url['user'], $url['pass']);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
   } catch (PDOException $e) {
     echo 'DataBase Connection Error : ' . $e->getMessage();
   }
-  return $db;
+  return $pdo;
 }
 
 // loginCheck func
@@ -61,4 +62,14 @@ function h($string)
   if (!empty($string)) {
     return htmlspecialchars($string, ENT_QUOTES, 'UTF-8', true);
   }
+}
+
+function navbar()
+{
+  include($_SERVER['DOCUMENT_ROOT'] . '/tpl/header_bar.tpl.php');
+}
+
+function footer()
+{
+  include($_SERVER['DOCUMENT_ROOT'] . '/tpl/footer_bar.tpl.php');
 }

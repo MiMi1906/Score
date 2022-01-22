@@ -18,7 +18,7 @@ display_none(bant);
 let matchData;
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let cnt_inning = 1;
+let cnt_inning = 9;
 let flag_inningChange = 1;
 let attack_flag = 0;
 
@@ -704,11 +704,13 @@ function next() {
         if (flag_inningChange == 0) {
             cnt_inning++;
         }
+        console.log(cnt_inning)
         if (cnt_inning >= 10) {
             display_none(match_data);
             display_none(select_block);
             display_block(end_btn);
             document.getElementById("match_end").innerHTML = '<div class="alert alert-primary" role="alert">' + '<p>試合終了</p><hr><p class="mb-0">' + score[0] + ' - ' + score[1] + '</p>' + '</div>'
+            matchEnd();
         }
         attack_flag = (attack_flag + 1) % 2;
         flag_inningChange = (flag_inningChange + 1) % 2;
@@ -914,12 +916,12 @@ function show_result() {
     }
 
     if (cnt_out >= 3) {
-        if (!(cnt_inning >= 9)) {
-            display_block(change);
-            document.getElementById("change").innerHTML = '<div class="alert alert-warning" role="alert">' + 'チェンジ' + '</div>'
-        } else {
+        if (cnt_inning >= 9 && flag_inningChange == 0) {
             display_block(change);
             document.getElementById("change").innerHTML = '<div class="alert alert-primary" role="alert">' + '試合終了' + '</div>'
+        } else {
+            display_block(change);
+            document.getElementById("change").innerHTML = '<div class="alert alert-warning" role="alert">' + 'チェンジ' + '</div>'
         }
     }
 }
@@ -1006,6 +1008,22 @@ function showBatterName(batter_index, team_flag) {
             data.flag_LR = '右打ち';
         }
         $('#batter_name').html(data.batter_name + '<small class="text-muted mx-2" style="font-size: 14px;">' + data.flag_LR + '</small>');
+    }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
+        // 失敗時はエラーを吐かせる
+        console.error(errorThrown);
+    })
+}
+
+function matchEnd() {
+    $.post({
+        url: '/writeData/match_end.php',
+        data: {
+            'my_team_score': score[0],
+            'opp_team_score': score[1],
+        },
+        dataType: 'text',
+    }).done(function (data) {
+        console.log(data);
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
         // 失敗時はエラーを吐かせる
         console.error(errorThrown);

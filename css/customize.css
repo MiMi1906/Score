@@ -10,8 +10,15 @@ body {
   /* padding-top: 2rem; */
   background-position: center center;
   background-size: cover;
-  background-image: url(/image/background.jpg);
+  /* background-image: url(/image/background.jpg); */
   background-attachment: fixed;
+}
+
+body#login-form{
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
 }
 
 input[type="number"]::-webkit-outer-spin-button, 
@@ -50,6 +57,10 @@ input[type="number"] {
   margin-bottom: 2rem;
 }
 
+.navbar .container{
+  margin: 0 auto;
+}
+
 label.label-placeholder{
   color: #888;
 }
@@ -75,4 +86,24 @@ span.cnt_out {
 span.cnt_num {
   font-size: 14px;
   letter-spacing: 3px;
+}
+
+.navbar-toggler, .navbar-toggler:focus{
+  background-color: transparent !important;
+  border-color: transparent !important;
+  border: none;
+  outline: none !important;
+}
+
+.navbar-dark .navbar-toggler{
+  outline: none;
+  color: transparent !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%23ffffff' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E") !important;
+}
+
+th{
+  width: 30% !important;
 }
