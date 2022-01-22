@@ -5,7 +5,6 @@ session_start();
 
 ini_set('display_errors', "On");
 
-
 loginCheck();
 
 // データベース接続
