@@ -1,7 +1,7 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
-ini_set('display_errors', "On");
+// ini_set('display_errors', "On");
 
 session_start();
 
@@ -25,8 +25,8 @@ if (!empty($_POST)) {
 
   unset($_SESSION['join']);
 
-  // header('Location: /join/complete/');
-  // exit();
+  header('Location: /join/complete/');
+  exit();
 }
 
 ?>
