@@ -214,7 +214,7 @@ if (!empty($_POST)) {
     <link rel="icon" type="image/x-icon" href="/favicon.png">
     <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
 
-    <title>記録を開始</title>
+    <title>記録を開始 / Score</title>
 </head>
 
 <body>
@@ -802,7 +802,7 @@ if (!empty($_POST)) {
                 </div>
             </div>
             <div class="text-end">
-                <input type="submit" class="btn btn-primary" value="記録を開始">
+                <input type="submit" class="btn btn-success" value="記録を開始">
             </div>
         </form>
     </div>
