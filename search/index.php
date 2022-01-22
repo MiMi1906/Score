@@ -33,7 +33,7 @@ $stmt->bindValue(':member_id', $member['id']);
 $stmt->execute();
 $total = $stmt->fetchColumn();
 
-$sql = "SELECT * FROM matches WHERE member_id = :member_id AND match_name LIKE '%" . $match_name . "%' ORDER BY g.id DESC LIMIT :end OFFSET :start";
+$sql = "SELECT * FROM matches WHERE member_id = :member_id AND match_name LIKE '%" . $match_name . "%' ORDER BY id DESC LIMIT :end OFFSET :start";
 $stmt = $db->prepare($sql);
 $stmt->execute();
 $stmt->bindValue(':start', ($_GET['page'] - 1) * 10);
