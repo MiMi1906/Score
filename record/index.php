@@ -3,8 +3,6 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
-ini_set('display_errors', "On");
-
 loginCheck();
 
 // データベース接続
@@ -212,7 +210,11 @@ if (!empty($_POST)) {
     <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/customize.css">
-    <title>Score</title>
+
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
+
+    <title>記録を開始</title>
 </head>
 
 <body>

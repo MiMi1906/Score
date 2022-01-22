@@ -3,8 +3,6 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
-ini_set('display_errors', "On");
-
 loginCheck();
 
 // データベース接続
@@ -35,6 +33,9 @@ $matches = $stmt->fetchAll();
 
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/customize.css">
+
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
 
   <title>ホーム / Score</title>
 </head>

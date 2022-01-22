@@ -42,7 +42,10 @@ if (!empty($_GET)) {
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/customize.css">
 
-  <title>Score</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
+
+  <title><?php echo $match_data['my_team_name'] ?> vs <?php echo $match_data['opp_team_name']; ?> / Score</title>
 </head>
 
 <body>

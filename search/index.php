@@ -3,8 +3,6 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
-ini_set('display_errors', "On");
-
 $match_name = "";
 
 if (empty($_GET['page'])) {
@@ -57,7 +55,10 @@ $pages = ceil($total / 10);
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/customize.css">
 
-  <title>記録 / Score</title>
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
+
+  <title>記録を探す / Score</title>
 </head>
 
 <body>
