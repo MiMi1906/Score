@@ -4,6 +4,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 session_start();
 
 ini_set('display_errors', "On");
+
 $match_name = "";
 
 if (empty($_GET['page'])) {
@@ -32,10 +33,10 @@ $stmt->bindValue(':member_id', $member['id']);
 $stmt->execute();
 $total = $stmt->fetchColumn();
 
-$sql = "SELECT g.* FROM members m, matches g WHERE m.id = g.member_id AND match_name LIKE '%" . $match_name . "%' ORDER BY g.id DESC LIMIT :num OFFSET :skip";
+$sql = "SELECT g.* FROM members m, matches g WHERE m.id = g.member_id AND match_name LIKE '%" . $match_name . "%' ORDER BY g.id DESC LIMIT :end OFFSET :start";
 $stmt = $db->prepare($sql);
-$stmt->bindValue(':num', 10);
-$stmt->bindValue(':skip', ($_GET['page'] - 1) * 10 + 1);
+$stmt->bindValue(':start', ($_GET['page'] - 1) * 10);
+$stmt->bindValue(':end', ($_GET['page'] - 1) * 10 + 10);
 $stmt->execute();
 $matches = $stmt->fetchAll();
 
