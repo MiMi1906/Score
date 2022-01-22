@@ -100,34 +100,30 @@ $matches = $stmt->fetchAll();
         </div>
         <div class="card">
           <div class="card-body">
-            <?php if (!empty($matches)) : ?>
-              <h4>試合結果を見る</h4>
-              <hr>
-              <?php
-              foreach ($matches as $match) {
-                print('<div class="shadow p-3 mb-3 bg-light rounded">');
-                print('<a href="/view/?match_id=' . $match['match_id'] . '&team_flag=0" class="text-dark" style="text-decoration: none;">');
-                print('<h5>' . $match['match_name']);
-                print('<small class="text-muted mx-3" style="font-size: 14px;">' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</small>');
-                print('</h5>');
-                print('<hr>');
-                print('<p class="mb-1">');
-                print($match['my_team_score'] . ' - ' . $match['opp_team_score']);
-                print('<br>');
-                print('<small class="text-muted">');
-                print(date('Y年m月d日',  strtotime($match['date'])));
-                print('</small>');
-                print('</p>');
-                print('</a>');
-                print('</div>');
-              }
-              ?>
-              <div class="d-grid">
-                <a href="/search/?page=1" class="btn btn-success">もっと見る</a>
-              </div>
-            <?php else : ?>
-              <p class="mb-1">まだ試合の記録はありません</p>
-            <?php endif; ?>
+            <h4>試合結果を見る</h4>
+            <hr>
+            <?php
+            foreach ($matches as $match) {
+              print('<div class="shadow p-3 mb-3 bg-light rounded">');
+              print('<a href="/view/?match_id=' . $match['match_id'] . '&team_flag=0" class="text-dark" style="text-decoration: none;">');
+              print('<h5>' . $match['match_name']);
+              print('<small class="text-muted mx-3" style="font-size: 14px;">' . $match['my_team_name'] . ' vs ' . $match['opp_team_name'] . '</small>');
+              print('</h5>');
+              print('<hr>');
+              print('<p class="mb-1">');
+              print($match['my_team_score'] . ' - ' . $match['opp_team_score']);
+              print('<br>');
+              print('<small class="text-muted">');
+              print(date('Y年m月d日',  strtotime($match['date'])));
+              print('</small>');
+              print('</p>');
+              print('</a>');
+              print('</div>');
+            }
+            ?>
+            <div class="d-grid">
+              <a href="/search/?page=1" class="btn btn-success">もっと見る</a>
+            </div>
           </div>
         </div>
       </div>
