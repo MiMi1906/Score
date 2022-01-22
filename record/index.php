@@ -3,6 +3,8 @@ require($_SERVER['DOCUMENT_ROOT'] . '/func.php');
 
 session_start();
 
+ini_set('display_errors', "On");
+
 loginCheck();
 
 // データベース接続
