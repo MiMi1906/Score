@@ -35,7 +35,7 @@ $total = $stmt->fetchColumn();
 
 $sql = "SELECT * FROM matches WHERE member_id = :member_id AND match_name LIKE '%" . $match_name . "%' ORDER BY id DESC LIMIT :end OFFSET :start";
 $stmt = $db->prepare($sql);
-$stmt->execute();
+$stmt->bindValue(':member_id', $member['id']);
 $stmt->bindValue(':start', ($_GET['page'] - 1) * 10);
 $stmt->bindValue(':end', ($_GET['page'] - 1) * 10 + 10);
 $stmt->execute();
