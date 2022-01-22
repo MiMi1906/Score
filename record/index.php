@@ -101,7 +101,7 @@ if (!empty($_POST)) {
     }
 
     if (empty($error)) {
-        $sql = 'SELECT MAX(match_id) AS max FROM matches WHERE member_id = :member_id';
+        $sql = 'SELECT MAX(match_id) FROM matches WHERE member_id = :member_id';
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':member_id', $_SESSION['id']);
         $stmt->execute();
