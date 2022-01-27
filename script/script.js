@@ -18,7 +18,7 @@ display_none(bant);
 let matchData;
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let cnt_inning = 9;
+let cnt_inning = 1;
 let flag_inningChange = 1;
 let attack_flag = 0;
 
