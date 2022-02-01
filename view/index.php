@@ -121,18 +121,18 @@ if (!empty($_GET)) {
         </div>
     </div>
 
-    <div class="card">
+    <div class="card" id="play_data">
       <div class="card-header bg-success text-white">
         プレー情報
       </div>
       <div class="card-body p-4">
         <nav class="nav nav-pills justify-content-center mb-4">
-          <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=0" class=" nav-item nav-link w-50 text-center <?php if ($_GET['team_flag'] == 0) {
+          <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=0#play_data" class=" nav-item nav-link w-50 text-center <?php if ($_GET['team_flag'] == 0) {
                                                                                                                               echo 'active text-white bg-success';
                                                                                                                             } else {
                                                                                                                               echo 'text-success bg-white';
                                                                                                                             } ?>" style="max-width: 400px;"><?php echo $match_data['my_team_name']; ?></a>
-          <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=1" class="nav-item nav-link w-50 text-center  <?php if ($_GET['team_flag'] == 1) {
+          <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=1#play_data" class="nav-item nav-link w-50 text-center  <?php if ($_GET['team_flag'] == 1) {
                                                                                                                               echo 'active text-white bg-success';
                                                                                                                             } else {
                                                                                                                               echo 'text-success bg-white';
