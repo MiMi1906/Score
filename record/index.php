@@ -99,16 +99,15 @@ if (!empty($_POST)) {
     }
 
     if (empty($error)) {
-        $sql = 'SELECT MAX(match_id) FROM matches WHERE member_id = :member_id';
+        $sql = 'SELECT MAX(match_id) FROM matches';
         $stmt = $db->prepare($sql);
-        $stmt->bindValue(':member_id', $_SESSION['id']);
         $stmt->execute();
-        $match_id = $stmt->fetchColumn() + 1;
-        // if (empty($match_id)) {
-        //     $match_id = 1;
-        // } else {
-        //     $match_id++;
-        // }
+        $match_id = $stmt->fetchColumn();
+        if (empty($match_id)) {
+            $match_id = 1;
+        } else {
+            $match_id++;
+        }
 
         $sql =
             'INSERT INTO 
