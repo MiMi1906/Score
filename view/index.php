@@ -174,7 +174,7 @@ if (!empty($_GET)) {
                                                                                           } else {
                                                                                             echo 'bg-warning';
                                                                                             $LR = '両';
-                                                                                          } ?>" style="margin-left: 5px;"><?php echo $batters[$record['batter_index'] - 1]['flag_LR']; ?></span>
+                                                                                          } ?>" style="margin-left: 5px;"><?php echo $batters[$record['batter_index']]['flag_LR']; ?></span>
               </small>
             </p>
             <hr>
