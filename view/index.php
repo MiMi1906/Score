@@ -165,7 +165,7 @@ if (!empty($_GET)) {
             }
             ?>
             <p><?php echo $inning_str; ?>
-              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'left') {
+              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php /*if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'left') {
                                                                                             echo 'bg-primary';
                                                                                             $LR = '左';
                                                                                           } else if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'right') {
@@ -174,7 +174,8 @@ if (!empty($_GET)) {
                                                                                           } else {
                                                                                             echo 'bg-warning';
                                                                                             $LR = '両';
-                                                                                          } ?>" style="margin-left: 5px;"><?php echo $LR; ?></span>
+                                                                                          }*/
+                                                                                          echo $batters[$record['batter_index'] - 1]['flag_LR']; ?>" style="margin-left: 5px;"><?php echo $LR; ?></span>
               </small>
             </p>
             <hr>
