@@ -208,7 +208,7 @@ function hit(value) {
             cnt_out++;
             cnt_ball = 0;
             cnt_strike = 0;
-            flat_out = true;
+            flag_out = true;
             break;
         case 6:
             data_hit = 'バントファウル';
@@ -231,7 +231,7 @@ function hit(value) {
             cnt_out++;
             cnt_ball = 0;
             cnt_strike = 0;
-            flat_out = true;
+            flag_out = true;
             break;
         case 10:
             data_hit = 'ヒット';
@@ -498,6 +498,7 @@ function showRunnerList() {
         display_block(tr3);
     }
     flag_out = false;
+
     if (flag_hit) {
         display_none(br0);
     } else {
