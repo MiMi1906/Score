@@ -151,7 +151,7 @@ $member = $members->fetch();
                     </div>
                     <div id="block_4" class="mb-3">
                         <div class="mb-3" id="batter_runner">
-                            <div class="label">
+                            <div class="label mb-2">
                                 バッターランナー
                             </div>
                             <select name="batter_runner" id="br" class="form-select" autocomplete="off">
@@ -164,22 +164,21 @@ $member = $members->fetch();
                             </select>
                         </div>
                         <div class="mb-3" id="first_runner">
-                            <div class="label">1塁ランナー</div>
+                            <div class="label mb-2">1塁ランナー</div>
                             <select name="first_runner" id="fr" class="form-select" autocomplete="off">
-                                <option value="-1" id="frsel" selected>選択してください</option>
-                                <option value="0" id="fr0">アウト</option>
                                 <option value="1" id="fr1">そのまま</option>
+                                <option value="0" id="fr0">アウト</option>
                                 <option value="2" id="fr2">2塁へ</option>
                                 <option value="3" id="fr3">3塁へ</option>
                                 <option value="4" id="fr4">ホームへ</option>
                             </select>
                         </div>
                         <div class="mb-3" id="second_runner">
-                            <div class="label">
+                            <div class="label mb-2">
                                 2塁ランナー
                             </div>
                             <select name="second_runner" id="sr" class="form-select" autocomplete="off">
-                                <option value="-1" id="srsel" selected>選択してください</option>
+                                <option value="2" id="sr2">そのまま</option>
                                 <option value="0" id="sr0">アウト</option>
                                 <option value="2" id="sr2">そのまま</option>
                                 <option value="3" id="sr3">3塁へ</option>
@@ -187,13 +186,12 @@ $member = $members->fetch();
                             </select>
                         </div>
                         <div class="mb-3" id="third_runner">
-                            <div class="label">
+                            <div class="label mb-2">
                                 3塁ランナー
                             </div>
                             <select name="third_runner" id="tr" class="form-select" autocomplete="off">
-                                <option value="-1" id="trsel" selected>選択してください</option>
-                                <option value="0" id="tr0">アウト</option>
                                 <option value="3" id="tr3">そのまま</option>
+                                <option value="0" id="tr0">アウト</option>
                                 <option value="4" id="tr4">ホームへ</option>
                             </select>
                         </div>

@@ -43,6 +43,7 @@ let flag_hit = false;
 let flag_deadBall = false;
 let flag_stolen = false;
 let flag_submit = false;
+let flag_out = false;
 
 // データのリセット
 let data_result = "";
@@ -130,10 +131,17 @@ function num2cnt(cnt) {
             show_cnt = '●●●';
             break;
         default:
+            show_cnt = '●●●';
             break;
     }
     return show_cnt;
 }
+
+$(window).on('beforeunload', function (e) {
+    var message = '更新すると、試合が強制終了されます。更新しますか?';
+    e.returnValue = message;
+    return message;
+});
 
 /* 関数_データを整理 */
 
@@ -200,6 +208,7 @@ function hit(value) {
             cnt_out++;
             cnt_ball = 0;
             cnt_strike = 0;
+            flat_out = true;
             break;
         case 6:
             data_hit = 'バントファウル';
@@ -222,6 +231,7 @@ function hit(value) {
             cnt_out++;
             cnt_ball = 0;
             cnt_strike = 0;
+            flat_out = true;
             break;
         case 10:
             data_hit = 'ヒット';
@@ -476,7 +486,7 @@ function showRunnerList() {
     display_block(tr3);
     display_block(tr4);
 
-    if (flag_stolen) {
+    if (flag_stolen || flag_out) {
         display_none(batter_runner);
         display_none(fr1);
         display_none(sr2);
@@ -487,6 +497,7 @@ function showRunnerList() {
         display_block(sr2);
         display_block(tr3);
     }
+    flag_out = false;
     if (flag_hit) {
         display_none(br0);
     } else {
@@ -497,13 +508,11 @@ function showRunnerList() {
     } else {
         display_none(first_runner);
     }
-
     if (runner_list[1] == 1) {
         display_block(second_runner);
     } else {
         display_none(second_runner);
     }
-
     if (runner_list[2] == 1) {
         display_block(third_runner);
     } else {
@@ -609,6 +618,9 @@ function stolen_base() {
 $(function ($) {
     $('#br').change(function () {
         frval = $("#br").val(); //選択したメニューの値
+        if (frval == -1) {
+            alert('選択してください');
+        }
         if (frval >= 1) {
             display_none(fr1);
         } else {
@@ -721,14 +733,7 @@ function next() {
         document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
     }
 
-    // サヨナラ
-    if (cnt_inning == 9 && flag_inningChange == 0 && score[0] < score[1]) {
-        display_none(match_data);
-        display_none(select_block);
-        display_block(end_btn);
-        document.getElementById("match_end").innerHTML = '<div class="alert alert-primary" role="alert">' + '<p>サヨナラ</p><hr><p class="mb-0">' + score[0] + ' - ' + score[1] + '</p>' + '</div>'
-        matchEnd();
-    }
+
 
     // バッターの名前を表示
     showBatterName(batterIndex_list[attack_flag], attack_flag);
@@ -932,6 +937,11 @@ function show_result() {
             document.getElementById("change").innerHTML = '<div class="alert alert-warning" role="alert">' + 'チェンジ' + '</div>'
         }
     }
+    else if (cnt_inning == 9 && flag_inningChange == 0 && score[0] < score[1]) {
+        display_block(change);
+        document.getElementById("change").innerHTML = '<div class="alert alert-primary" role="alert">' + 'サヨナラ' + '</div>'
+        cnt_out = 3;
+    }
 }
 
 // 結果を送信
@@ -1021,7 +1031,7 @@ function showBatterName(batter_index, team_flag) {
             badge = 'bg-warning';
             data.flag_lr = '両';
         }
-        $('#batter_name').html(data.batter_name + '・' + data.batter_back_num + '<span class="badge ' + badge + '" style="margin-left: 7.5px; font-size: 14px;">' + data.flag_lr + '</small>');
+        $('#batter_name').html(data.batter_name + ' ・ ' + data.batter_back_num + '<span class="badge ' + badge + '" style="margin-left: 7.5px; font-size: 14px;">' + data.flag_lr + '</small>');
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
         // 失敗時はエラーを吐かせる
         console.error(errorThrown);

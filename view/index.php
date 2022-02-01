@@ -162,7 +162,7 @@ if (!empty($_GET)) {
             if ($record['batter_index'] != '') {
               $batter_str .= $record['batter_index'] . '番 ';
               $batter_str .= $batters[$record['batter_index'] - 1]['batter_name'];
-              $batter_str .= '・' . $batters[$record['batter_index'] - 1]['batter_back_num'];
+              $batter_str .= ' ・ ' . $batters[$record['batter_index'] - 1]['batter_back_num'];
             }
             ?>
             <p><?php echo $inning_str; ?>
