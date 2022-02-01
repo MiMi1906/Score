@@ -84,9 +84,12 @@ $matches = $stmt->fetchAll();
             <div class="card-text">
               <!-- <h6 class="mb-3">NEWS</h6> -->
               <ul class="list-group list-group-flush">
-                <a href="#" class="list-group-item text-dark">
+                <li class="list-group-item text-dark">
+                  <b>閲覧機能の修正を行いました</b> ・ 2022/1/22<br>
+                </li>
+                <li class="list-group-item text-dark">
                   <b>ver.1.0.0をリリースしました</b> ・ 2022/1/22<br>
-                </a>
+                </li>
               </ul>
             </div>
           </div>
