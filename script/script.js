@@ -470,18 +470,15 @@ function showRunnerList() {
     display_block(br2);
     display_block(br3);
     display_block(br4);
-    display_block(frsel);
     display_block(fr0);
     display_block(fr1);
     display_block(fr2);
     display_block(fr3);
     display_block(fr4);
-    display_block(srsel);
     display_block(sr0);
     display_block(sr2);
     display_block(sr3);
     display_block(sr4);
-    display_block(trsel);
     display_block(tr0);
     display_block(tr3);
     display_block(tr4);
