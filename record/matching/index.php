@@ -166,8 +166,9 @@ $member = $members->fetch();
                         <div class="mb-3" id="first_runner">
                             <div class="label mb-2">1塁ランナー</div>
                             <select name="first_runner" id="fr" class="form-select" autocomplete="off">
-                                <option value="1" id="fr1">そのまま</option>
+                                <option value="-1" id="frsel" selected>選択してください</option>
                                 <option value="0" id="fr0">アウト</option>
+                                <option value="1" id="fr1">そのまま</option>
                                 <option value="2" id="fr2">2塁へ</option>
                                 <option value="3" id="fr3">3塁へ</option>
                                 <option value="4" id="fr4">ホームへ</option>
@@ -178,7 +179,7 @@ $member = $members->fetch();
                                 2塁ランナー
                             </div>
                             <select name="second_runner" id="sr" class="form-select" autocomplete="off">
-                                <option value="2" id="sr2">そのまま</option>
+                                <option value="-1" id="srsel" selected>選択してください</option>
                                 <option value="0" id="sr0">アウト</option>
                                 <option value="2" id="sr2">そのまま</option>
                                 <option value="3" id="sr3">3塁へ</option>
@@ -190,8 +191,9 @@ $member = $members->fetch();
                                 3塁ランナー
                             </div>
                             <select name="third_runner" id="tr" class="form-select" autocomplete="off">
-                                <option value="3" id="tr3">そのまま</option>
+                                <option value="-1" id="trsel" selected>選択してください</option>
                                 <option value="0" id="tr0">アウト</option>
+                                <option value="3" id="tr3">そのまま</option>
                                 <option value="4" id="tr4">ホームへ</option>
                             </select>
                         </div>
