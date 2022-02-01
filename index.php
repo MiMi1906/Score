@@ -85,10 +85,10 @@ $matches = $stmt->fetchAll();
               <!-- <h6 class="mb-3">NEWS</h6> -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-dark">
-                  <b>閲覧機能の修正を行いました</b> ・ 2022/1/22<br>
+                  <b>閲覧機能の修正を行いました</b> ・ 2022-02-01<br>
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>ver.1.0.0をリリースしました</b> ・ 2022/1/22<br>
+                  <b>ver.1.0.0をリリースしました</b> ・ 2022-01-22<br>
                 </li>
               </ul>
             </div>
