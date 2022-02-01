@@ -27,6 +27,9 @@ $member = $members->fetch();
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/customize.css">
 
+    <link rel="icon" type="image/x-icon" href="/favicon.png">
+    <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
+
     <title>試合中 / Score</title>
 </head>
 
@@ -163,7 +166,7 @@ $member = $members->fetch();
                         <div class="mb-3" id="first_runner">
                             <div class="label">1塁ランナー</div>
                             <select name="first_runner" id="fr" class="form-select" autocomplete="off">
-                                <option value=-1"" id="frsel" selected>選択してください</option>
+                                <option value="-1" id="frsel" selected>選択してください</option>
                                 <option value="0" id="fr0">アウト</option>
                                 <option value="1" id="fr1">そのまま</option>
                                 <option value="2" id="fr2">2塁へ</option>
