@@ -165,7 +165,10 @@ if (!empty($_GET)) {
             }
             ?>
             <p><?php echo $inning_str;
-                print_r($batters[$record['batter_index'] - 1]['flag_LR']); ?>
+                print('<pre>');
+                print_r($batters);
+                print('</pre>');
+                ?>
               <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'left') {
                                                                                             echo 'bg-primary';
                                                                                             $LR = '左';
