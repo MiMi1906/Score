@@ -103,12 +103,12 @@ if (!empty($_POST)) {
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':member_id', $_SESSION['id']);
         $stmt->execute();
-        $match_id = $stmt->fetchColumn();
-        if (empty($match_id)) {
-            $match_id = 1;
-        } else {
-            $match_id++;
-        }
+        $match_id = $stmt->fetchColumn() + 1;
+        // if (empty($match_id)) {
+        //     $match_id = 1;
+        // } else {
+        //     $match_id++;
+        // }
 
         $sql =
             'INSERT INTO 
