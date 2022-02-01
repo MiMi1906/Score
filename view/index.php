@@ -164,18 +164,14 @@ if (!empty($_GET)) {
               $batter_str .= $batters[$record['batter_index'] - 1]['batter_name'];
             }
             ?>
-            <p><?php echo $inning_str;
-                print('<pre>');
-                print_r($batters);
-                print('</pre>');
-                ?>
-              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'left') {
+            <p><?php echo $inning_str; ?>
+              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index'] - 1]['flag_lr'] == 'left') {
                                                                                             echo 'bg-primary';
                                                                                             $LR = '左';
-                                                                                          } else if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'right') {
+                                                                                          } else if ($batters[$record['batter_index'] - 1]['flag_lr'] == 'right') {
                                                                                             echo 'bg-danger';
                                                                                             $LR = '右';
-                                                                                          } else if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'both') {
+                                                                                          } else if ($batters[$record['batter_index'] - 1]['flag_lr'] == 'both') {
                                                                                             echo 'bg-warning';
                                                                                             $LR = '両';
                                                                                           } ?>" style="margin-left: 5px;"><?php echo $LR; ?></span>
