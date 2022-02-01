@@ -9,7 +9,7 @@
 body {
   /* padding-top: 2rem; */
   background-position: center center;
-  background-size: cover;
+/*   background-size: contain; */
   background-image: url(/image/background.png);
   background-repeat: repeat;
 }
