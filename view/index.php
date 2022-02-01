@@ -128,15 +128,15 @@ if (!empty($_GET)) {
       <div class="card-body p-4">
         <nav class="nav nav-pills justify-content-center mb-4">
           <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=0#play_data" class=" nav-item nav-link w-50 text-center <?php if ($_GET['team_flag'] == 0) {
-                                                                                                                              echo 'active text-white bg-success';
-                                                                                                                            } else {
-                                                                                                                              echo 'text-success bg-white';
-                                                                                                                            } ?>" style="max-width: 400px;"><?php echo $match_data['my_team_name']; ?></a>
+                                                                                                                                        echo 'active text-white bg-success';
+                                                                                                                                      } else {
+                                                                                                                                        echo 'text-success bg-white';
+                                                                                                                                      } ?>" style="max-width: 400px;"><?php echo $match_data['my_team_name']; ?></a>
           <a href="/view/?match_id=<?php echo $_GET['match_id'] ?>&team_flag=1#play_data" class="nav-item nav-link w-50 text-center  <?php if ($_GET['team_flag'] == 1) {
-                                                                                                                              echo 'active text-white bg-success';
-                                                                                                                            } else {
-                                                                                                                              echo 'text-success bg-white';
-                                                                                                                            } ?>" style="max-width: 400px;"><?php echo $match_data['opp_team_name']; ?></a>
+                                                                                                                                        echo 'active text-white bg-success';
+                                                                                                                                      } else {
+                                                                                                                                        echo 'text-success bg-white';
+                                                                                                                                      } ?>" style="max-width: 400px;"><?php echo $match_data['opp_team_name']; ?></a>
         </nav>
         <hr>
         <?php if (empty($records)) : ?>
@@ -165,10 +165,10 @@ if (!empty($_GET)) {
             }
             ?>
             <p><?php echo $inning_str; ?>
-              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index']]['flag_LR'] == 'left') {
+              <small class="text-muted mx-3"><?php echo $batter_str; ?><span class="badge <?php if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'left') {
                                                                                             echo 'bg-primary';
                                                                                             $LR = '左';
-                                                                                          } else if ($batters[$record['batter_index']]['flag_LR'] == 'right') {
+                                                                                          } else if ($batters[$record['batter_index'] - 1]['flag_LR'] == 'right') {
                                                                                             echo 'bg-danger';
                                                                                             $LR = '右';
                                                                                           } else {
