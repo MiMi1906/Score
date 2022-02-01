@@ -162,6 +162,7 @@ if (!empty($_GET)) {
             if ($record['batter_index'] != '') {
               $batter_str .= $record['batter_index'] . '番 ';
               $batter_str .= $batters[$record['batter_index'] - 1]['batter_name'];
+              $batter_str .= '・' . $batters[$record['batter_index'] - 1]['batter_back_num'];
             }
             ?>
             <p><?php echo $inning_str; ?>
@@ -174,7 +175,7 @@ if (!empty($_GET)) {
                                                                                           } else if ($batters[$record['batter_index'] - 1]['flag_lr'] == 'both') {
                                                                                             echo 'bg-warning';
                                                                                             $LR = '両';
-                                                                                          } ?>" style="margin-left: 5px;"><?php echo $LR; ?></span>
+                                                                                          } ?>" style="margin-left: 7.5px;"><?php echo $LR; ?></span>
               </small>
             </p>
             <hr>
