@@ -129,7 +129,7 @@ if (!empty($_GET) && $_GET['action'] == 'rewrite') {
           </div>
           <input type="submit" class="btn btn-success my-3 py-2 px-4 rounded-pill" value="入力内容を確認">
         </form>
-        <p class="text-secondary">アカウントをお持ちの方は <a href="/join/" class="text-success">ログイン</a></p>
+        <p class="text-secondary">アカウントをお持ちの方は <a href="/login/" class="text-success">ログイン</a></p>
       </div>
     </div>
   </div>
