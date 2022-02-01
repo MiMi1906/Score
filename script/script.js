@@ -1001,13 +1001,19 @@ function showBatterName(batter_index, team_flag) {
         },
         dataType: 'json', // json形式で返すように設定
     }).done(function (data) {
+        let badge;
         $('#batter_index').html(data.batter_index + '番');
         if (data.flag_LR == 'left') {
-            data.flag_LR = '左打ち';
+            badge = 'bg-primary';
+            data.flag_LR = '左';
+        } else if (data.flag_LR == 'right') {
+            badge = 'bg-danger';
+            data.flag_LR = '右';
         } else {
-            data.flag_LR = '右打ち';
+            badge = 'bg-warning';
+            data.flag_LR = '両';
         }
-        $('#batter_name').html(data.batter_name + '<small class="text-muted mx-2" style="font-size: 14px;">' + data.flag_LR + '</small>');
+        $('#batter_name').html(data.batter_name + '・' + data.batter_back_num + '<span class="badge ' + badge + '" style="margin-left: 7.5px; font-size: 14px;">' + data.flag_LR + '</small>');
     }).fail(function (_XMLHttpRequest, _textStatus, errorThrown) {
         // 失敗時はエラーを吐かせる
         console.error(errorThrown);
