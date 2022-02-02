@@ -51,7 +51,7 @@ $matches = $stmt->fetchAll();
           <div class="card-body text-center">
             <div class="text-center d-flex justify-content-center my-3 align-items-baseline">
               <img src="/image/logo.png" alt="" class="w-50" style="max-width: 150px">
-              <small class="text-muted mx-3">ver.1.0.0</small>
+              <small class="text-muted mx-3">ver.1.1.1</small>
             </div>
             <div class="card-text mt-5">
               <h5>ようこそ<?php echo ' ' . $member['name']; ?> さん</h5>
@@ -85,10 +85,19 @@ $matches = $stmt->fetchAll();
               <!-- <h6 class="mb-3">NEWS</h6> -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-dark">
-                  <b>閲覧機能の修正を行いました</b> ・ 2022-02-01<br>
+                  <b>v.1.1.1</b> ページ更新時のアラートの修正を行いました ・ 2022-02-02<br>
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>ver.1.0.0をリリースしました</b> ・ 2022-01-22<br>
+                  <b>v.1.1.0</b> サヨナラを実装しました ・ 2022-02-02<br>
+                </li>
+                <li class="list-group-item text-dark">
+                  <b>v.1.0.2</b> バグの修正を行いました ・ 2022-02-01<br>
+                </li>
+                <li class="list-group-item text-dark">
+                  <b>v.1.0.1</b> 閲覧機能の修正を行いました ・ 2022-02-01<br>
+                </li>
+                <li class="list-group-item text-dark">
+                  <b>v.1.0.0をリリースしました</b> ・ 2022-01-22<br>
                 </li>
               </ul>
             </div>
