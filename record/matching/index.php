@@ -90,7 +90,7 @@ $member = $members->fetch();
 
                 </div>
                 <div id="end_btn" class="text-end">
-                    <a href="/record/end_match/" class="btn btn-success">終了</a>
+                    <a href="/record/end_match/" id="exit" class="btn btn-success">終了</a>
                 </div>
                 <div id="block_next">
                     <div class="text-end">
