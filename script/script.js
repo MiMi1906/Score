@@ -18,7 +18,7 @@ display_none(bant);
 let matchData;
 let score = [0, 0];
 let batterIndex_list = [1, 1];
-let cnt_inning = 9;
+let cnt_inning = 1;
 let flag_inningChange = 1;
 let attack_flag = 0;
 
@@ -83,7 +83,7 @@ $(function () {
     setTimeout('stopload()', 2000);
 });
 
-
+// 読み込みを終了
 function stopload() {
     $('#wrap').css('display', 'block');
     $('#loading').css('display', 'none');
@@ -91,6 +91,18 @@ function stopload() {
 
 // スリープ関数
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// リロード時のアラート
+var onBeforeunloadHandler = function(e) {
+    e.returnValue = '更新すると、試合が強制終了されます。更新しますか?';
+};
+// イベントを登録
+window.addEventListener('beforeunload', onBeforeunloadHandler, false);
+
+document.getElementById("exit").addEventListener('submit', function(e) {
+    // イベントを削除
+    window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
+}, false);
 
 /* 関数_表示 */
 
@@ -136,12 +148,6 @@ function num2cnt(cnt) {
     }
     return show_cnt;
 }
-
-$(window).on('beforeunload', function (e) {
-    var message = '更新すると、試合が強制終了されます。更新しますか?';
-    e.returnValue = message;
-    return message;
-});
 
 /* 関数_データを整理 */
 
