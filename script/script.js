@@ -99,7 +99,7 @@ var onBeforeunloadHandler = function(e) {
 // イベントを登録
 window.addEventListener('beforeunload', onBeforeunloadHandler, false);
 
-document.getElementById("exit").addEventListener('submit', function(e) {
+document.getElementById("exit").addEventListener('click', function(e) {
     // イベントを削除
     window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
 }, false);
