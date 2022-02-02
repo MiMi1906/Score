@@ -85,19 +85,24 @@ $matches = $stmt->fetchAll();
               <!-- <h6 class="mb-3">NEWS</h6> -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-dark">
-                  <b>v.1.1.1</b> ページ更新時のアラートの修正を行いました ・ 2022-02-02<br>
+                   2022-02-02<br>
+                  <b>v.1.1.1</b> ページ更新時のアラートの修正を行いました
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>v.1.1.0</b> サヨナラを実装しました ・ 2022-02-02<br>
+                  2022-02-02<br>
+                  <b>v.1.1.0</b> サヨナラを実装しました
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>v.1.0.2</b> バグの修正を行いました ・ 2022-02-01<br>
+                  2022-02-01<br>
+                  <b>v.1.0.2</b> バグの修正を行いました 
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>v.1.0.1</b> 閲覧機能の修正を行いました ・ 2022-02-01<br>
+                  2022-02-01<br>
+                  <b>v.1.0.1</b> 閲覧機能の修正を行いました
                 </li>
                 <li class="list-group-item text-dark">
-                  <b>v.1.0.0をリリースしました</b> ・ 2022-01-22<br>
+                  2022-01-22<br>
+                  <b>v.1.0.0</b> Score リリース!!
                 </li>
               </ul>
             </div>
