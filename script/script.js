@@ -985,6 +985,7 @@ function getMatchData() {
 
 // データを送信(Ajax)
 function postData(team_flag, result, position, place, b_runner, ball_array, batter_index, inning, attack_flag) {
+    console.log('batter_index >>> ' + batter_index);
     $.post({
         url: '/writeData/play_data.php',
         data: {
