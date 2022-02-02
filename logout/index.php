@@ -23,6 +23,8 @@ session_destroy();
   <link href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <link rel="stylesheet" href="/css/customize.css">
+  <link rel="icon" type="image/x-icon" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="125x125" href="/favicon.png">
   <title>ログアウト / Score</title>
 </head>
 
