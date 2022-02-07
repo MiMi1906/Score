@@ -968,6 +968,10 @@ function submit() {
         postData(attack_flag, data_result, value_position, data_place, value_run, data_stack.join(' / '), '', cnt_inning, (flag_inningChange + 1) % 2);
         flag_stolen = false;
         data_stack = [];
+        document.getElementById('br').options[0].selected = true;
+        document.getElementById('fr').options[0].selected = true;
+        document.getElementById('sr').options[0].selected = true;
+        document.getElementById('tr').options[0].selected = true;
     }
     $('#data_result').text('');
     $('#change').text('');
