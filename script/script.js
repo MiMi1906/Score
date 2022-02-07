@@ -93,13 +93,13 @@ function stopload() {
 const _sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 // リロード時のアラート
-var onBeforeunloadHandler = function(e) {
+var onBeforeunloadHandler = function (e) {
     e.returnValue = '更新すると、試合が強制終了されます。更新しますか?';
 };
 // イベントを登録
 window.addEventListener('beforeunload', onBeforeunloadHandler, false);
 
-document.getElementById("exit").addEventListener('click', function(e) {
+document.getElementById("exit").addEventListener('click', function (e) {
     // イベントを削除
     window.removeEventListener('beforeunload', onBeforeunloadHandler, false);
 }, false);
