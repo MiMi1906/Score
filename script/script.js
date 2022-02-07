@@ -534,7 +534,7 @@ function setRunner() {
     hb = 0;
     runner_list = [0, 0, 0];
     // バッターランナー
-    if (document.getElementById("br").value != "") {
+    if (document.getElementById("br").value != "" && !flag_stolen) {
         br = document.getElementById("br").value;
         if (br >= 4) {
             hb += 1;
@@ -557,6 +557,7 @@ function setRunner() {
         }
         else if (fr == 0) {
             cnt_out++;
+            runner_list[0] = 0;
         }
     }
     // セカンドランナー
@@ -570,6 +571,7 @@ function setRunner() {
         }
         else if (sr == 0) {
             cnt_out++;
+            runner_list[1] = 0;
         }
     }
     // サードランナー
@@ -583,6 +585,7 @@ function setRunner() {
         }
         else if (tr == 0) {
             cnt_out++;
+            runner_list[2] = 0;
         }
     }
 
