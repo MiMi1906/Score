@@ -488,6 +488,7 @@ function showRunnerList() {
     display_block(tr0);
     display_block(tr3);
     display_block(tr4);
+    display_block(batter_runner);
 
     if (flag_stolen || flag_out) {
         display_none(batter_runner);
@@ -495,7 +496,6 @@ function showRunnerList() {
         display_none(sr2);
         display_none(tr3);
     } else {
-        display_block(batter_runner);
         display_block(fr1);
         display_block(sr2);
         display_block(tr3);
