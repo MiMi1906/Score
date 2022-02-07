@@ -160,6 +160,7 @@ if (!empty($_GET)) {
 
             $batter_str = '';
             if ($record['batter_index'] != '') {
+              print_r($record['batter_index']);
               $batter_str .= $record['batter_index'] . '番 ';
               $batter_str .= $batters[$record['batter_index'] - 1]['batter_name'];
               $batter_str .= ' ・ ' . $batters[$record['batter_index'] - 1]['batter_back_num'];

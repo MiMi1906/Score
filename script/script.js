@@ -490,15 +490,11 @@ function showRunnerList() {
     display_block(tr4);
     display_block(batter_runner);
 
-    if (flag_stolen || flag_out) {
+    if (flag_stolen) {
         display_none(batter_runner);
-        display_none(fr1);
-        display_none(sr2);
-        display_none(tr3);
-    } else {
-        display_block(fr1);
-        display_block(sr2);
-        display_block(tr3);
+    }
+    if (flag_out) {
+        display_none(batter_runner);
     }
     flag_out = false;
 
@@ -506,6 +502,7 @@ function showRunnerList() {
         display_none(br0);
     } else {
         display_block(br0);
+        display_block(batter_runner);
     }
     if (runner_list[0] == 1) {
         display_block(first_runner);
