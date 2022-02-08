@@ -719,9 +719,19 @@ function next() {
 
     // スリーアウトでチェンジ
     if (cnt_out >= 3) {
+        // 9回表で攻撃終了
+        if (flag_inningChange == 1 && cnt_inning == 9 && score[0] < score[1]) {
+            display_none(match_data);
+            display_none(select_block);
+            display_block(end_btn);
+            document.getElementById("match_end").innerHTML = '<div class="alert alert-primary" role="alert">' + '<p>試合終了</p><hr><p class="mb-0">' + score[0] + ' - ' + score[1] + '</p>' + '</div>'
+            matchEnd();
+        }
+
         if (flag_inningChange == 0) {
             cnt_inning++;
         }
+
         if (cnt_inning >= 10) {
             display_none(match_data);
             display_none(select_block);
@@ -738,8 +748,6 @@ function next() {
         document.getElementById("cnt_strike").innerHTML = num2cnt(cnt_strike);  // ストライクカウントの表示
         document.getElementById("cnt_out").innerHTML = num2cnt(cnt_out);  // アウトカウントの表示
     }
-
-
 
     // バッターの名前を表示
     showBatterName(batterIndex_list[attack_flag], attack_flag);
