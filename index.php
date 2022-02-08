@@ -51,7 +51,7 @@ $matches = $stmt->fetchAll();
           <div class="card-body text-center">
             <div class="text-center d-flex justify-content-center my-3 align-items-baseline">
               <img src="/image/logo.png" alt="" class="w-50" style="max-width: 150px">
-              <small class="text-muted mx-3">ver.1.1.1</small>
+              <small class="text-muted mx-3">ver.1.1.2</small>
             </div>
             <div class="card-text mt-5">
               <h5>ようこそ<?php echo ' ' . $member['name']; ?> さん</h5>
