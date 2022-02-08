@@ -975,6 +975,7 @@ function submit() {
     display_none(change);
     data_reset();
     showRunner();
+    flag_out = false;
 
     display_switch(block_next, block_1);
 }
