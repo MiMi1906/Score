@@ -974,6 +974,7 @@ function submit() {
     $('#change').text('');
     display_none(change);
     data_reset();
+    showRunner();
 
     display_switch(block_next, block_1);
 }
