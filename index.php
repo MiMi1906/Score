@@ -85,7 +85,11 @@ $matches = $stmt->fetchAll();
               <!-- <h6 class="mb-3">NEWS</h6> -->
               <ul class="list-group list-group-flush">
                 <li class="list-group-item text-dark">
-                   2022-02-02<br>
+                  2022-02-08<br>
+                  <b>v.1.1.2</b> ランナー移動のバグを修正しました
+                </li>
+                <li class="list-group-item text-dark">
+                  2022-02-02<br>
                   <b>v.1.1.1</b> ページ更新時のアラートの修正を行いました
                 </li>
                 <li class="list-group-item text-dark">
@@ -94,7 +98,7 @@ $matches = $stmt->fetchAll();
                 </li>
                 <li class="list-group-item text-dark">
                   2022-02-01<br>
-                  <b>v.1.0.2</b> バグの修正を行いました 
+                  <b>v.1.0.2</b> バグの修正を行いました
                 </li>
                 <li class="list-group-item text-dark">
                   2022-02-01<br>
